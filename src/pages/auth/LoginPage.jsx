@@ -25,12 +25,12 @@ export default function LoginPage() {
     document.head.appendChild(style);
     return () => style.remove();
   }, []);
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    if (email === "admin@laundry.com" && password === "123456") {
+    if (username === "admin" && password === "123456") {
       navigate("/admin");
     } else {
       alert("Email / password salah");
@@ -62,10 +62,10 @@ export default function LoginPage() {
 
           <label style={styles.label}><Icon name="user" size={14} /> Username</label>
           <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             style={styles.input}
           />
 
