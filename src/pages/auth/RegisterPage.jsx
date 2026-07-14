@@ -95,7 +95,7 @@ export default function RegisterPage() {
             <span onClick={() => setShowPass(!showPass)} style={styles.passToggle}>{showPass ? "\uD83D\uDC41\u200D\uD83D\uDDE8\uFE0F" : "\uD83D\uDC41"}</span>
           </div>
 
-          <button onClick={handleRegister} style={styles.button}>Daftar</button>
+          <button type="button" onClick={handleRegister} style={styles.button}>Daftar</button>
 
           <div style={styles.footer}>
             <span style={styles.footerText}>Sudah punya akun? </span>

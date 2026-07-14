@@ -10,9 +10,8 @@ export default function LoginPage() {
 .alp-wrap > div[style*="z-index: 1"] { flex-direction: column !important; width: 92% !important; max-width: 420px !important; border-radius: 24px !important; }
 .alp-wrap > div[style*="z-index: 1"] > div:first-child { width: 100% !important; min-width: unset !important; padding: 28px 20px 20px !important; border-radius: 24px 24px 0 0 !important; }
 .alp-wrap > div[style*="z-index: 1"] > div:last-child { padding: 20px 16px 24px !important; }
-.alp-wrap input { font-size: 16px !important; padding: 14px 16px !important; width: 100% !important; border-radius: 14px !important; box-sizing: border-box !important; }
-.alp-wrap button { font-size: 16px !important; padding: 14px !important; border-radius: 14px !important; }
-.alp-wrap, .alp-wrap > div[style*="z-index: 1"] { overflow: visible !important; }
+.alp-wrap input { font-size: 16px !important; padding: 14px 16px !important; width: 100% !important; border-radius: 14px !important; box-sizing: border-box !important; -webkit-appearance: none !important; appearance: none !important; }
+.alp-wrap button { font-size: 16px !important; padding: 14px !important; border-radius: 14px !important; touch-action: manipulation !important; -webkit-tap-highlight-color: transparent !important; }
 }
 @media (max-width: 480px) {
 .alp-wrap > div[style*="z-index: 1"] { width: 94% !important; }
@@ -29,11 +28,12 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = () => {
+  const handleLogin = (e) => {
+    e.preventDefault();
     if (username === "admin" && password === "123456") {
       navigate("/admin");
     } else {
-      alert("Email / password salah");
+      alert("Username / password salah");
     }
   };
 
@@ -78,7 +78,7 @@ export default function LoginPage() {
             style={styles.input}
           />
 
-          <button onClick={handleLogin} style={styles.button}>
+          <button type="button" onClick={handleLogin} style={styles.button}>
             Login
           </button>
         </div>

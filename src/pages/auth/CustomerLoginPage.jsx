@@ -20,12 +20,10 @@ export default function CustomerLoginPage() {
 .clp-wrap > div[style*="z-index: 1"] > div:first-child{width:100%!important;min-width:unset!important;padding:28px 20px 20px!important;border-radius:24px 24px 0 0!important}
 .clp-wrap > div[style*="z-index: 1"] > div:first-child > div:first-child{font-size:44px!important}
 .clp-wrap > div[style*="z-index: 1"] > div:last-child{padding:20px 16px 24px!important}
-.clp-wrap input{font-size:16px!important;padding:14px 16px!important;box-sizing:border-box!important;width:100%!important;border-radius:14px!important}
-.clp-wrap button{font-size:16px!important;padding:14px!important;border-radius:14px!important}
+.clp-wrap input{font-size:16px!important;padding:14px 16px!important;box-sizing:border-box!important;width:100%!important;border-radius:14px!important;-webkit-appearance:none!important;appearance:none!important}
+.clp-wrap button{font-size:16px!important;padding:14px!important;border-radius:14px!important;touch-action:manipulation!important;-webkit-tap-highlight-color:transparent!important}
 .clp-wrap > div[style*="z-index: 1"] > div:last-child h2{font-size:20px!important}
 .clp-wrap > div[style*="position: fixed"] > div{width:90%!important;max-width:360px!important;padding:24px 20px!important;border-radius:24px!important;margin:0 auto!important}
-.clp-wrap > div[style*="position: fixed"]{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
-.clp-wrap,.clp-wrap > div[style*="z-index: 1"]{overflow:visible!important}
 }
 @media (max-width: 480px) {
 .clp-wrap > div[style*="z-index: 1"] > div:first-child{padding:20px 16px 16px!important}
@@ -126,7 +124,7 @@ export default function CustomerLoginPage() {
             <span onClick={() => setShowPass(!showPass)} style={styles.passToggle}>{showPass ? "\uD83D\uDC41\u200D\uD83D\uDDE8\uFE0F" : "\uD83D\uDC41"}</span>
           </div>
 
-          <button onClick={handleLogin} style={styles.button}>Login</button>
+          <button type="button" onClick={handleLogin} style={styles.button}>Login</button>
 
           <div style={styles.footer}>
             <span style={styles.footerText}>Belum punya akun? </span>
@@ -159,7 +157,7 @@ export default function CustomerLoginPage() {
               <span onClick={() => setShowPass(!showPass)} style={styles.passToggle}>{showPass ? "\uD83D\uDC41\u200D\uD83D\uDDE8\uFE0F" : "\uD83D\uDC41"}</span>
             </div>
 
-            <button onClick={handleResetPassword} style={styles.button}>Ganti Password</button>
+            <button type="button" onClick={handleResetPassword} style={styles.button}>Ganti Password</button>
 
             <div style={styles.footer}>
               <span style={styles.link} onClick={() => { setShowReset(false); setError(""); }}>Kembali ke login</span>
