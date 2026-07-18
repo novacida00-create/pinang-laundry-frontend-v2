@@ -4,12 +4,14 @@ import Icon from "../../utils/icons";
 export default function KaryawanLaporan() {
   const [laporan, setLaporan] = useState([]);
 
+  // ambil data laporan dari api
   useEffect(() => {
     fetch("/api/laporan").then(r => r.json()).then(setLaporan).catch(() => {});
   }, []);
 
   const formatRp = (n) => "Rp " + Number(n || 0).toLocaleString("id-ID");
 
+  // hitung total pendapatan dari semua transaksi
   const totalPendapatan = laporan.reduce((s, l) => s + Number(l.total || 0), 0);
 
   return (

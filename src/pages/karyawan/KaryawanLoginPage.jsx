@@ -9,6 +9,7 @@ export default function KaryawanLoginPage() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  // bikin responsive style buat mobile
   useEffect(() => {
     const style = document.createElement("style");
     style.textContent = `
@@ -39,6 +40,7 @@ export default function KaryawanLoginPage() {
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
+    // console.log('submit login', username)
     if (!username || !password) {
       setError("Masukkan username dan password!");
       return;
@@ -57,8 +59,10 @@ export default function KaryawanLoginPage() {
         return;
       }
       localStorage.setItem("karyawan", JSON.stringify(data));
+      // simpen data login ke local storage trus redirect
       navigate("/karyawan/dashboard");
-    } catch {
+    } catch (err) {
+      // console.log('login error:', err)
       setError("Gagal terhubung ke server");
       setLoading(false);
     }
@@ -73,6 +77,7 @@ export default function KaryawanLoginPage() {
           <div style={styles.cardLeftIcon}>🧺</div>
           <h2 style={styles.cardLeftTitle}>Pinang Laundry</h2>
           <p style={styles.cardLeftSub}>Bersih, Cepat, Terpercaya</p>
+          {/* icon pakaian */}
           <div style={styles.cardLeftIcons}>
             <span style={styles.cardLeftIconSmall}>&#x1F455;</span>
             <span style={styles.cardLeftIconSmall}>&#x1F456;</span>
@@ -109,6 +114,7 @@ export default function KaryawanLoginPage() {
               onChange={(e) => setPassword(e.target.value)}
               style={styles.input}
             />
+            {/* toggle show password */}
             <span onClick={() => setShowPass(!showPass)} style={styles.passToggle}>{showPass ? "\uD83D\uDC41\u200D\uD83D\uDDE8\uFE0F" : "\uD83D\uDC41"}</span>
           </div>
 

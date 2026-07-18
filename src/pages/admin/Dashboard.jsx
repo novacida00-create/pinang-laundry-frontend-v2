@@ -6,6 +6,7 @@ import Icon from "../../utils/icons.jsx";
 
 
 
+// format tanggal biar keliatan lokal
 const formatTanggalIndonesia = () => {
   const hari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
   const bulan = [
@@ -54,8 +55,10 @@ export default function Dashboard() {
     loadStats();
   }, [refreshKey]);
 
+  // ambil data dari API buat dashboard
   const loadStats = async () => {
     try {
+      // fetch dua endpoint sekaligus biar cepet
       const [ordersRes, pelangganRes] = await Promise.all([
         fetch("/api/orders"),
         fetch("/api/pelanggan")
@@ -134,6 +137,7 @@ export default function Dashboard() {
     if (confirm("Yakin ingin menghapus pengguna ini?")) {
       setUsers(users.filter(u => u.no !== no));
       alert("Pengguna berhasil dihapus!");
+      // console.log("user dihapus:", no);
     }
   };
 
@@ -221,6 +225,7 @@ export default function Dashboard() {
         <section style={{ ...styles.card, marginBottom: 25 }}>
           <div style={styles.cardHeader}>
             <h3 style={styles.cardTitle}>Grafik Pendapatan</h3>
+            {/* nanti bisa ditambah filter bulan */}
             <select style={styles.select}><option>6 Bulan Terakhir</option></select>
           </div>
           <div style={{ width: "100%", height: 320 }}>
@@ -406,6 +411,7 @@ const StatCard = ({ label, val, color, iColor, icon, growth, onClick }) => {
 };
 
 function getRoleBadge(role) {
+  // badge warna buat role karyawan
   if (role === "Admin") return { padding: "4px 10px", borderRadius: 8, background: "#eff6ff", color: "#3b82f6", fontSize: 10, fontWeight: 800 };
   if (role.includes("Kasir")) return { padding: "4px 10px", borderRadius: 8, background: "#ecfdf5", color: "#10b981", fontSize: 10, fontWeight: 800 };
   if (role.includes("Cuci")) return { padding: "4px 10px", borderRadius: 8, background: "#f5f3ff", color: "#8b5cf6", fontSize: 10, fontWeight: 800 };

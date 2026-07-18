@@ -12,6 +12,7 @@ export default function KaryawanDashboard() {
   const [deliveryStats, setDeliveryStats] = useState({ siap_diambil: 0, diambil: 0, total_pengiriman: 0 });
   const [deliveryOrders, setDeliveryOrders] = useState([]);
 
+  // load data waktu pertama kali buka halaman
   useEffect(() => {
     fetchData();
   }, []);
@@ -20,8 +21,10 @@ export default function KaryawanDashboard() {
     try {
       const res = await fetch("/api/orders");
       const orders = await res.json();
+      // console.log('orders:', orders)
 
       if (isDelivery) {
+        // kalo role delivery, hitung status pengiriman
         const siapDiambil = orders.filter((o) => o.status === "Selesai").length;
         const diambil = orders.filter((o) => o.status === "Diambil").length;
         setDeliveryStats({ siap_diambil: siapDiambil, diambil: diambil, total_pengiriman: siapDiambil + diambil });
@@ -51,6 +54,7 @@ export default function KaryawanDashboard() {
     }
   };
 
+  // format angka jadi rupiah
   const formatRp = (n) => "Rp " + (n || 0).toLocaleString("id-ID");
 
   const statusColor = (s) => {

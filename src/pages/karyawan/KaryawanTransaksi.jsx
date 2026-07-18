@@ -10,11 +10,13 @@ export default function KaryawanTransaksi() {
   });
   const karyawan = JSON.parse(localStorage.getItem("karyawan") || "{}");
 
+  // ambil data orders sama layanan dari api
   useEffect(() => {
     fetch("/api/orders").then(r => r.json()).then(setOrders).catch(() => {});
     fetch("/api/layanan").then(r => r.json()).then(setLayanan).catch(() => {});
   }, []);
 
+  //update harga kalo pilih layanan baru
   const handleServiceChange = (name) => {
     const svc = layanan.find((l) => l.name === name);
     if (svc) {
@@ -29,6 +31,7 @@ export default function KaryawanTransaksi() {
 
   const handleSubmit = async () => {
     if (!form.customer_name || !form.service_name) return alert("Lengkapi data!");
+    // bikin kode order otomatis
     const now = new Date();
     const orderCount = orders.length + 1;
     const orderCode = "ORD-" + String(orderCount).padStart(4, "0");
@@ -62,6 +65,7 @@ export default function KaryawanTransaksi() {
   };
 
   const formatRp = (n) => "Rp " + (n || 0).toLocaleString("id-ID");
+  // console.log('layanan:', layanan)
 
   const statusColor = (s) => {
     switch (s) {

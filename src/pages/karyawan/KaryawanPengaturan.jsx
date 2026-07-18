@@ -7,6 +7,7 @@ export default function KaryawanPengaturan() {
   const [editing, setEditing] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", phone: "" });
 
+  // isi profile dari data karyawan yang udah login
   useEffect(() => {
     setProfile({
       name: karyawan.name || "",
@@ -17,6 +18,7 @@ export default function KaryawanPengaturan() {
   }, []);
 
   const handleEdit = () => {
+    // copy data profile ke form biar bisa diedit
     setForm({ name: profile.name, email: profile.email, phone: profile.phone });
     setEditing(true);
   };
@@ -36,12 +38,14 @@ export default function KaryawanPengaturan() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Gagal simpan");
 
+      // update local storage juga biar data fresh
       const updated = { ...karyawan, name: form.name, email: form.email, phone: form.phone };
       localStorage.setItem("karyawan", JSON.stringify(updated));
       setProfile({ ...profile, name: form.name, email: form.email, phone: form.phone });
       setEditing(false);
       alert("Profil berhasil disimpan!");
     } catch (err) {
+      // console.log('save error:', err)
       alert("Gagal menyimpan: " + err.message);
     }
   };

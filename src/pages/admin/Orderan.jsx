@@ -45,6 +45,7 @@ export default function Orderan() {
       const res = await fetch("/api/orders");
       const data = await res.json();
       if (data.error) throw new Error(data.error);
+      // tambahin nomor urut tiap order
       setOrders(data.map((o, index) => ({ ...o, no: index + 1 })));
     } catch (e) {
       console.error("Failed to load orders:", e);

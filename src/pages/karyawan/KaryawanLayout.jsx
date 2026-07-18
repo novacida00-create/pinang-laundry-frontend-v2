@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate, useLocation, Outlet } from "react-router-dom";
 import Icon from "../../utils/icons";
 
+// menu sidebar beda2 tergantung role karyawan
 const menuItemsByRole = {
   "Staff (Kasir)": [
     { path: "/karyawan/dashboard", icon: "dashboard", label: "Dashboard" },
@@ -31,15 +32,18 @@ export default function KaryawanLayout() {
   const navigate = useNavigate();
   const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  // ambil data karyawan dari local storage
   const karyawan = JSON.parse(localStorage.getItem("karyawan") || "{}");
 
   const handleLogout = () => {
     localStorage.removeItem("karyawan");
+    // bersihin local storage trus redirect ke login
     navigate("/karyawan/login");
   };
 
   return (
     <div style={styles.layout}>
+      {/* overlay buat nutup sidebar kalo di mobile */}
       {sidebarOpen && <div style={styles.overlay} onClick={() => setSidebarOpen(false)} />}
 
       {/* SIDEBAR - persis seperti admin */}
@@ -55,6 +59,7 @@ export default function KaryawanLayout() {
 
           <nav style={styles.nav}>
             {(menuItemsByRole[karyawan.role] || menuItemsByRole["Staff (Kasir)"]).map((item) => {
+              // cek halaman aktif buat highlight menu
               const active = location.pathname === item.path;
               return (
                 <div

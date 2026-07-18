@@ -26,6 +26,7 @@ export default function Karyawan() {
       const res = await fetch(`${API}/karyawan`);
       const data = await res.json();
       if (data.error) throw new Error(data.error);
+      // mapping data biar nama fieldnya konsisten
       setAllKaryawan(data.map(k => ({ ...k, order: k.order_count ?? k.order ?? 0 })));
     } catch (err) {
       console.error("Gagal memuat karyawan:", err);
@@ -41,6 +42,7 @@ export default function Karyawan() {
     k.role.toLowerCase().includes(search.toLowerCase())
   );
 
+  // pagination setup
   const itemsPerPage = 5;
   const totalPages = Math.ceil(filteredKaryawan.length / itemsPerPage);
   const paginatedKaryawan = filteredKaryawan.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
@@ -107,7 +109,7 @@ export default function Karyawan() {
         const data = await res.json();
         if (data.error) throw new Error(data.error);
         alert("Karyawan berhasil dihapus!");
-        fetchKaryawan();
+        fetchKaryawan(); // refresh list
       } catch (err) {
         alert("Gagal menghapus karyawan: " + err.message);
       }
