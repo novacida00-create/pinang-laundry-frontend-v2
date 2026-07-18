@@ -11,6 +11,12 @@ import Laporan from "../pages/admin/Laporan";
 import Pengaturan from "../pages/admin/Pengaturan";
 import AdminLayanan from "../pages/admin/Layanan";
 import CustomerDashboard from "../pages/customer/CustomerDashboard";
+import KaryawanLoginPage from "../pages/karyawan/KaryawanLoginPage";
+import KaryawanLayout from "../pages/karyawan/KaryawanLayout";
+import KaryawanDashboard from "../pages/karyawan/KaryawanDashboard";
+import KaryawanTransaksi from "../pages/karyawan/KaryawanTransaksi";
+import KaryawanLaporan from "../pages/karyawan/KaryawanLaporan";
+import KaryawanPengaturan from "../pages/karyawan/KaryawanPengaturan";
 import LandingPage from "../pages/LandingPage";
 import LayananPage from "../pages/LayananPage";
 import TentangPage from "../pages/TentangPage";
@@ -36,6 +42,13 @@ export default function AppRoutes() {
         <Route path="/karyawan" element={<Karyawan />} />
         <Route path="/laporan" element={<Laporan />} />
         <Route path="/pengaturan" element={<Pengaturan />} />
+        <Route path="/karyawan/login" element={<KaryawanLoginPage />} />
+        <Route path="/karyawan" element={<KaryawanLayout />}>
+          <Route path="dashboard" element={<KaryawanDashboard />} />
+          <Route path="transaksi" element={<KaryawanTransaksi />} />
+          <Route path="laporan" element={<KaryawanLaporan />} />
+          <Route path="pengaturan" element={<KaryawanPengaturan />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

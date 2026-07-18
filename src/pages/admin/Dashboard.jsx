@@ -94,20 +94,19 @@ export default function Dashboard() {
   };
 
   const [users, setUsers] = useState([
-    { no: 1, name: "Alex", user: "Alex123", role: "Admin", phone: "0812-3456-7890" },
-    { no: 2, name: "Siti Aisyah", user: "siti.aisyah", role: "Kasir", phone: "0813-2345-6789" },
-    { no: 3, name: "Budi Setiawan", user: "budi.setiawan", role: "Staff", phone: "0814-1234-5678" },
-    { no: 4, name: "Dewi Lestari", user: "dewi.lestari", role: "Staff", phone: "0815-9876-5432" },
-    { no: 5, name: "Andi Saputra", user: "andi.saputra", role: "Delivery", phone: "0816-4567-8901" },
+    { no: 1, name: "Sobariah", user: "Sobariah123", role: "Admin", phone: "0812-3456-7890" },
+    { no: 2, name: "Siti Aisyah", user: "siti.aisyah", role: "Staff (Kasir)", phone: "0813-2345-6789" },
+    { no: 3, name: "Dewi Lestari", user: "dewi.lestari", role: "Staff (Cuci)", phone: "0815-9876-5432" },
+    { no: 4, name: "Andi Saputra", user: "andi.saputra", role: "Staff (Delivery)", phone: "0816-4567-8901" },
   ]);
-  const [newUser, setNewUser] = useState({ name: "", user: "", role: "Staff", phone: "" });
+  const [newUser, setNewUser] = useState({ name: "", user: "", role: "Staff (Kasir)", phone: "" });
 
   const handleTambahUser = () => {
     if (newUser.name) {
       const no = users.length + 1;
       const username = newUser.name.toLowerCase().replace(/\s+/g, ".");
       setUsers([...users, { ...newUser, user: username, no }]);
-      setNewUser({ name: "", user: "", role: "Staff", phone: "" });
+      setNewUser({ name: "", user: "", role: "Staff (Kasir)", phone: "" });
       setShowUserModal(false);
       alert("Pengguna berhasil ditambahkan!");
     } else {
@@ -125,7 +124,7 @@ export default function Dashboard() {
     if (editingUser && newUser.name) {
       setUsers(users.map(u => u.no === editingUser.no ? { ...newUser, no: editingUser.no } : u));
       setEditingUser(null);
-      setNewUser({ name: "", user: "", role: "Staff", phone: "" });
+      setNewUser({ name: "", user: "", role: "Staff (Kasir)", phone: "" });
       setShowUserModal(false);
       alert("Pengguna berhasil diupdate!");
     }
@@ -183,7 +182,7 @@ export default function Dashboard() {
         <div style={styles.profileWidget}>
           <div style={styles.avatarCircle}><Icon name="user" /></div>
           <div style={{ flex: 1 }}>
-            <div style={styles.profName}>Alex</div>
+            <div style={styles.profName}>Sobariah</div>
             <div style={styles.profRole}>Admin</div>
           </div>
           <button onClick={() => navigate("/")} style={styles.logoutBtn}>Logout</button>
@@ -195,7 +194,7 @@ export default function Dashboard() {
         <label htmlFor="mt" className="mt-l"><Icon name="menu2" /></label>
         {/* HEADER */}
         <header style={styles.header}>
-          <h2 style={styles.welcome}>Selamat datang, Alex!</h2>
+          <h2 style={styles.welcome}>Selamat datang, Sobariah!</h2>
           <div style={styles.headerRight}>
             <div style={styles.dateBox}><Icon name="calendar" /> {currentDate}</div>
             <div style={styles.notifBtn} onClick={() => setShowNotifModal(true)}>
@@ -298,13 +297,13 @@ export default function Dashboard() {
               <label style={styles.label}>Role</label>
               <select style={styles.formInput} value={newUser.role} onChange={(e) => setNewUser({...newUser, role: e.target.value})}>
                 <option value="Admin">Admin</option>
-                <option value="Kasir">Kasir</option>
-                <option value="Staff">Staff</option>
-                <option value="Delivery">Delivery</option>
+                <option value="Staff (Kasir)">Staff (Kasir)</option>
+                <option value="Staff (Cuci)">Staff (Cuci)</option>
+                <option value="Staff (Delivery)">Staff (Delivery)</option>
               </select>
             </div>
             <div style={styles.modalButtons}>
-              <button style={styles.modalCancel} onClick={() => { setShowUserModal(false); setEditingUser(null); setNewUser({ name: "", user: "", role: "Staff", phone: "" }); }}>Batal</button>
+              <button style={styles.modalCancel} onClick={() => { setShowUserModal(false); setEditingUser(null); setNewUser({ name: "", user: "", role: "Staff (Kasir)", phone: "" }); }}>Batal</button>
               <button style={styles.modalSave} onClick={editingUser ? handleUpdateUser : handleTambahUser}>
                 {editingUser ? "Update" : "Simpan"}
               </button>
@@ -319,7 +318,7 @@ export default function Dashboard() {
           <div style={styles.modal} onClick={e => e.stopPropagation()}>
             <div style={styles.profileHeader}>
               <div style={styles.profileAvatar}><Icon name="user" size={40} /></div>
-              <h3>Alex</h3>
+              <h3>Sobariah</h3>
               <p style={styles.profileRole}>Admin</p>
             </div>
             <div style={styles.profileInfo}>
@@ -408,9 +407,10 @@ const StatCard = ({ label, val, color, iColor, icon, growth, onClick }) => {
 
 function getRoleBadge(role) {
   if (role === "Admin") return { padding: "4px 10px", borderRadius: 8, background: "#eff6ff", color: "#3b82f6", fontSize: 10, fontWeight: 800 };
-  if (role === "Kasir") return { padding: "4px 10px", borderRadius: 8, background: "#ecfdf5", color: "#10b981", fontSize: 10, fontWeight: 800 };
-  if (role === "Staff") return { padding: "4px 10px", borderRadius: 8, background: "#f5f3ff", color: "#8b5cf6", fontSize: 10, fontWeight: 800 };
-  return { padding: "4px 10px", borderRadius: 8, background: "#fff7ed", color: "#f97316", fontSize: 10, fontWeight: 800 };
+  if (role.includes("Kasir")) return { padding: "4px 10px", borderRadius: 8, background: "#ecfdf5", color: "#10b981", fontSize: 10, fontWeight: 800 };
+  if (role.includes("Cuci")) return { padding: "4px 10px", borderRadius: 8, background: "#f5f3ff", color: "#8b5cf6", fontSize: 10, fontWeight: 800 };
+  if (role.includes("Delivery")) return { padding: "4px 10px", borderRadius: 8, background: "#fff7ed", color: "#f97316", fontSize: 10, fontWeight: 800 };
+  return { padding: "4px 10px", borderRadius: 8, background: "#f1f5f9", color: "#64748b", fontSize: 10, fontWeight: 800 };
 }
 
 /* --- STYLES --- */
@@ -426,7 +426,7 @@ const styles = {
   navItem: { padding: "12px 16px", borderRadius: 12, color: "rgba(255,255,255,0.75)", fontSize: 14, fontWeight: 500, cursor: "pointer", textDecoration: "none", display: "flex", transition: "all 0.2s" },
   navActive: { background: "rgba(255,255,255,0.15)", color: "#fff", fontWeight: 700 },
   profileWidget: { display: "flex", alignItems: "center", gap: 12, padding: 14 },
-  avatarCircle: { width: 40, height: 40, background: "rgba(255,255,255,0.2)", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center", fontSize: 18, color: "rgba(255,255,255,0.75)" },
+  avatarCircle: { width: 40, height: 40, minWidth: 40, minHeight: 40, maxWidth: 40, maxHeight: 40, background: "rgba(255,255,255,0.2)", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center", fontSize: 18, color: "rgba(255,255,255,0.75)", overflow: "hidden", flexShrink: 0 },
   profName: { fontSize: 14, fontWeight: 600, color: "#fff" },
   profRole: { fontSize: 10, color: "rgba(255,255,255,0.6)" },
   logoutBtn: { background: "#ef4444", border: "none", cursor: "pointer", fontSize: 13, fontWeight: 600, color: "#fff", padding: "10px 16px", borderRadius: 10 },

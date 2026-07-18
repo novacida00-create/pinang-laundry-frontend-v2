@@ -13,7 +13,7 @@ const defaultSettings = {
   namaToko: "Pinang Laundry",
   alamat: "Jl. Pinang Raya No. 123, Jakarta Selatan",
   telepon: "021-7654321",
-  namaAdmin: "Alex",
+  namaAdmin: "Sobariah",
   jamBuka: "07:00",
   jamTutup: "21:00",
   notifEmail: false,
@@ -171,7 +171,7 @@ export default function Pengaturan() {
         <div style={styles.profileWidget}>
           <div style={styles.avatarCircle}><Icon name="user" /></div>
           <div style={{ flex: 1 }}>
-            <div style={styles.profName}>Alex</div>
+            <div style={styles.profName}>Sobariah</div>
             <div style={styles.profRole}>Admin</div>
           </div>
           <button onClick={() => navigate("/")} style={styles.logoutBtn}>Logout</button>
@@ -371,7 +371,7 @@ const styles = {
   navItem: { padding: "12px 16px", borderRadius: 12, color: "rgba(255,255,255,0.75)", fontSize: 14, fontWeight: 500, cursor: "pointer", textDecoration: "none", display: "flex", transition: "all 0.2s" },
   navActive: { background: "rgba(255,255,255,0.15)", color: "#fff", fontWeight: 700 },
   profileWidget: { display: "flex", alignItems: "center", gap: 12, padding: 14 },
-  avatarCircle: { width: 40, height: 40, background: "rgba(255,255,255,0.2)", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center", fontSize: 18, color: "rgba(255,255,255,0.75)" },
+  avatarCircle: { width: 40, height: 40, minWidth: 40, minHeight: 40, maxWidth: 40, maxHeight: 40, background: "rgba(255,255,255,0.2)", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center", fontSize: 18, color: "rgba(255,255,255,0.75)", overflow: "hidden", flexShrink: 0 },
   profName: { fontSize: 14, fontWeight: 600, color: "#fff" },
   profRole: { fontSize: 10, color: "rgba(255,255,255,0.6)" },
   logoutBtn: { background: "#ef4444", border: "none", cursor: "pointer", fontSize: 13, fontWeight: 600, color: "#fff", padding: "10px 16px", borderRadius: 10 },

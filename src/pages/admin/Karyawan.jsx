@@ -18,7 +18,7 @@ export default function Karyawan() {
   const [currentPage, setCurrentPage] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const [editingKaryawan, setEditingKaryawan] = useState(null);
-  const [newKaryawan, setNewKaryawan] = useState({ name: "", role: "Staff Laundry", phone: "" });
+  const [newKaryawan, setNewKaryawan] = useState({ name: "", role: "Staff (Kasir)", phone: "" });
   const [allKaryawan, setAllKaryawan] = useState([]);
 
   const fetchKaryawan = async () => {
@@ -76,7 +76,7 @@ export default function Karyawan() {
           alert(`Karyawan berhasil ditambahkan!\nNama: ${newKaryawan.name}\nRole: ${newKaryawan.role}`);
         }
 
-        setNewKaryawan({ name: "", role: "Staff Laundry", phone: "" });
+        setNewKaryawan({ name: "", role: "Staff (Kasir)", phone: "" });
         setEditingKaryawan(null);
         setShowModal(false);
         fetchKaryawan();
@@ -158,7 +158,7 @@ export default function Karyawan() {
         <div style={styles.profileWidget}>
           <div style={styles.avatarCircle}><Icon name="user" /></div>
           <div style={{ flex: 1 }}>
-            <div style={styles.profName}>Alex</div>
+            <div style={styles.profName}>Sobariah</div>
             <div style={styles.profRole}>Admin</div>
           </div>
           <button onClick={() => navigate("/")} style={styles.logoutBtn}>Logout</button>
@@ -183,9 +183,9 @@ export default function Karyawan() {
 
         <div style={styles.statsRow}>
           <StatCard label="Total Karyawan" val={allKaryawan.length.toString()} color="#e0f2fe" iColor="#0ea5e9" icon="idBadge2" growth="8.5%" />
-          <StatCard label="Kasir" val={allKaryawan.filter(k => k.role === "Kasir").length.toString()} color="#dcfce7" iColor="#22c55e" icon="moneybag" growth="2.1%" />
-          <StatCard label="Staff Laundry" val={allKaryawan.filter(k => k.role === "Staff Laundry").length.toString()} color="#f3e8ff" iColor="#a855f7" icon="tshirt" growth="5.3%" />
-          <StatCard label="Delivery" val={allKaryawan.filter(k => k.role === "Delivery").length.toString()} color="#ffedd5" iColor="#f97316" icon="car" growth="1.2%" />
+          <StatCard label="Kasir" val={allKaryawan.filter(k => k.role.includes("Kasir")).length.toString()} color="#dcfce7" iColor="#22c55e" icon="moneybag" growth="2.1%" />
+          <StatCard label="Staff Laundry" val={allKaryawan.filter(k => k.role.includes("Cuci")).length.toString()} color="#f3e8ff" iColor="#a855f7" icon="tshirt" growth="5.3%" />
+          <StatCard label="Delivery" val={allKaryawan.filter(k => k.role.includes("Delivery")).length.toString()} color="#ffedd5" iColor="#f97316" icon="car" growth="1.2%" />
         </div>
 
         <section style={styles.card}>
@@ -230,10 +230,9 @@ export default function Karyawan() {
             <h3 style={styles.modalTitle}>Tambah Karyawan</h3>
             <input style={styles.modalInput} placeholder="Nama Karyawan" value={newKaryawan.name} onChange={(e) => setNewKaryawan({...newKaryawan, name: e.target.value})} />
             <select style={styles.modalInput} value={newKaryawan.role} onChange={(e) => setNewKaryawan({...newKaryawan, role: e.target.value})}>
-              <option value="Admin">Admin</option>
-              <option value="Kasir">Kasir</option>
-              <option value="Staff Laundry">Staff Laundry</option>
-              <option value="Delivery">Delivery</option>
+              <option value="Staff (Kasir)">Staff (Kasir)</option>
+              <option value="Staff (Cuci)">Staff (Cuci)</option>
+              <option value="Staff (Delivery)">Staff (Delivery)</option>
             </select>
             <input style={styles.modalInput} placeholder="Nomor HP" value={newKaryawan.phone} onChange={(e) => setNewKaryawan({...newKaryawan, phone: e.target.value})} />
             <div style={styles.modalButtons}>
@@ -265,10 +264,10 @@ const StatCard = ({ label, val, color, iColor, icon, growth }) => (
 );
 
 function getRoleBadge(role) {
-  if (role === "Admin") return { padding: "4px 10px", borderRadius: 8, background: "#eff6ff", color: "#3b82f6", fontSize: 10, fontWeight: 800 };
-  if (role === "Kasir") return { padding: "4px 10px", borderRadius: 8, background: "#ecfdf5", color: "#10b981", fontSize: 10, fontWeight: 800 };
-  if (role === "Staff Laundry") return { padding: "4px 10px", borderRadius: 8, background: "#f5f3ff", color: "#8b5cf6", fontSize: 10, fontWeight: 800 };
-  return { padding: "4px 10px", borderRadius: 8, background: "#fff7ed", color: "#f97316", fontSize: 10, fontWeight: 800 };
+  if (role.includes("Kasir")) return { padding: "4px 10px", borderRadius: 8, background: "#ecfdf5", color: "#10b981", fontSize: 10, fontWeight: 800 };
+  if (role.includes("Cuci")) return { padding: "4px 10px", borderRadius: 8, background: "#f5f3ff", color: "#8b5cf6", fontSize: 10, fontWeight: 800 };
+  if (role.includes("Delivery")) return { padding: "4px 10px", borderRadius: 8, background: "#fff7ed", color: "#f97316", fontSize: 10, fontWeight: 800 };
+  return { padding: "4px 10px", borderRadius: 8, background: "#eff6ff", color: "#3b82f6", fontSize: 10, fontWeight: 800 };
 }
 
 function getStatusBadge(status) {
@@ -303,7 +302,7 @@ const styles = {
   navItem: { padding: "12px 16px", borderRadius: 12, color: "rgba(255,255,255,0.75)", fontSize: 14, fontWeight: 500, cursor: "pointer", textDecoration: "none", display: "flex", transition: "all 0.2s" },
   navActive: { background: "rgba(255,255,255,0.15)", color: "#fff", fontWeight: 700 },
   profileWidget: { display: "flex", alignItems: "center", gap: 12, padding: 14 },
-  avatarCircle: { width: 40, height: 40, background: "rgba(255,255,255,0.2)", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center", fontSize: 18, color: "rgba(255,255,255,0.75)" },
+  avatarCircle: { width: 40, height: 40, minWidth: 40, minHeight: 40, maxWidth: 40, maxHeight: 40, background: "rgba(255,255,255,0.2)", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center", fontSize: 18, color: "rgba(255,255,255,0.75)", overflow: "hidden", flexShrink: 0 },
   profName: { fontSize: 14, fontWeight: 600, color: "#fff" },
   profRole: { fontSize: 10, color: "rgba(255,255,255,0.6)" },
   logoutBtn: { background: "#ef4444", border: "none", cursor: "pointer", fontSize: 13, fontWeight: 600, color: "#fff", padding: "10px 16px", borderRadius: 10 },
