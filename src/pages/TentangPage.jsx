@@ -32,6 +32,7 @@ export default function TentangPage() {
           </nav>
           <div className="lp-nav-btns" style={styles.navButtons}>
             <button onClick={() => navigate("/login")} style={styles.navLoginBtn}>Login Admin</button>
+            <button onClick={() => navigate("/karyawan/login")} style={styles.navLoginBtn}>Login Karyawan</button>
             <button onClick={() => navigate("/customer/login")} style={styles.navOrderBtn}>Pesan Sekarang</button>
           </div>
           <button className="lp-mobile-toggle" style={styles.mobileToggle} onClick={() => setMobileMenu(!mobileMenu)}>

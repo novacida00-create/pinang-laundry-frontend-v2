@@ -71,6 +71,7 @@ export default function Layanan() {
 
           <div className="lp-nav-btns" style={styles.navButtons}>
             <button onClick={() => navigate("/login")} style={styles.navLoginBtn}>Login Admin</button>
+            <button onClick={() => navigate("/karyawan/login")} style={styles.navLoginBtn}>Login Karyawan</button>
             <button onClick={() => navigate("/customer/login")} style={styles.navOrderBtn}>Pesan Sekarang</button>
           </div>
 
