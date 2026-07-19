@@ -24,11 +24,12 @@ export default function KaryawanDashboard() {
       // console.log('orders:', orders)
 
       if (isDelivery) {
-        // kalo role delivery, hitung status pengiriman
-        const siapDiambil = orders.filter((o) => o.status === "Selesai").length;
-        const diambil = orders.filter((o) => o.status === "Diambil").length;
+        // kalo role delivery, hitung yg delivery_mode kurir aja
+        const deliveryOrders = orders.filter((o) => o.delivery_mode === "kurir");
+        const siapDiambil = deliveryOrders.filter((o) => o.status === "Selesai").length;
+        const diambil = deliveryOrders.filter((o) => o.status === "Diambil").length;
         setDeliveryStats({ siap_diambil: siapDiambil, diambil: diambil, total_pengiriman: siapDiambil + diambil });
-        setDeliveryOrders(orders.filter((o) => o.status === "Selesai" || o.status === "Diambil"));
+        setDeliveryOrders(deliveryOrders.filter((o) => o.status === "Selesai" || o.status === "Diambil"));
       } else {
         const totalTransaksi = orders.reduce((sum, o) => sum + (o.total || 0), 0);
         const orderBaru = orders.filter((o) => o.status === "Menunggu").length;
@@ -113,6 +114,8 @@ export default function KaryawanDashboard() {
                 <tr>
                   <th style={styles.th}>No. Nota</th>
                   <th style={styles.th}>Pelanggan</th>
+                  <th style={styles.th}>Telepon</th>
+                  <th style={styles.th}>Alamat</th>
                   <th style={styles.th}>Layanan</th>
                   <th style={styles.th}>Total</th>
                   <th style={styles.th}>Status</th>
@@ -126,6 +129,8 @@ export default function KaryawanDashboard() {
                     <tr key={o.id}>
                       <td style={styles.td}>{o.order_code}</td>
                       <td style={styles.td}>{o.customer_name}</td>
+                      <td style={styles.td}>{o.phone || "-"}</td>
+                      <td style={styles.td}>{o.address || "-"}</td>
                       <td style={styles.td}>{o.service_name}</td>
                       <td style={styles.td}>{formatRp(o.total)}</td>
                       <td style={styles.td}>
@@ -145,7 +150,7 @@ export default function KaryawanDashboard() {
                   );
                 })}
                 {deliveryOrders.length === 0 && (
-                  <tr><td colSpan={6} style={{ ...styles.td, textAlign: "center", color: "#94a3b8" }}>Tidak ada pesanan</td></tr>
+                  <tr><td colSpan={8} style={{ ...styles.td, textAlign: "center", color: "#94a3b8" }}>Tidak ada pesanan</td></tr>
                 )}
               </tbody>
             </table>

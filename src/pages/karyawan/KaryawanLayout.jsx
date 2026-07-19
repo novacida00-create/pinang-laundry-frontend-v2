@@ -32,21 +32,18 @@ export default function KaryawanLayout() {
   const navigate = useNavigate();
   const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  // ambil data karyawan dari local storage
   const karyawan = JSON.parse(localStorage.getItem("karyawan") || "{}");
 
   const handleLogout = () => {
     localStorage.removeItem("karyawan");
-    // bersihin local storage trus redirect ke login
     navigate("/karyawan/login");
   };
 
   return (
     <div style={styles.layout}>
-      {/* overlay buat nutup sidebar kalo di mobile */}
       {sidebarOpen && <div style={styles.overlay} onClick={() => setSidebarOpen(false)} />}
 
-      {/* SIDEBAR - persis seperti admin */}
+      {/* SIDEBAR */}
       <aside style={{ ...styles.sidebar, ...(sidebarOpen ? { transform: "translateX(0)" } : {}) }}>
         <div style={styles.sidebarTop}>
           <div style={styles.logoSection}>
@@ -59,7 +56,6 @@ export default function KaryawanLayout() {
 
           <nav style={styles.nav}>
             {(menuItemsByRole[karyawan.role] || menuItemsByRole["Staff (Kasir)"]).map((item) => {
-              // cek halaman aktif buat highlight menu
               const active = location.pathname === item.path;
               return (
                 <div
@@ -74,12 +70,11 @@ export default function KaryawanLayout() {
           </nav>
         </div>
 
-        {/* Profile Widget - bawah sidebar */}
+        {/* Profile Widget */}
         <div style={styles.profileWidget}>
           <div style={styles.avatarCircle}><Icon name="user" size={18} /></div>
           <div style={{ flex: 1 }}>
             <div style={styles.profName}>{karyawan.name || "Karyawan"}</div>
-            <div style={styles.profRole}>{karyawan.role}</div>
           </div>
           <button onClick={handleLogout} style={styles.logoutBtn}>Logout</button>
         </div>
@@ -119,69 +114,32 @@ export default function KaryawanLayout() {
 const styles = {
   layout: { display: "flex", minHeight: "100dvh", fontFamily: "'Inter', sans-serif", background: "#f1f5f9" },
   overlay: { position: "fixed", inset: 0, background: "rgba(0,0,0,0.3)", zIndex: 40 },
-
   sidebar: {
-    width: 260,
-    background: "linear-gradient(180deg, #0f2b5e, #1e40af)",
-    padding: "30px 24px",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-    position: "fixed",
-    top: 0,
-    left: 0,
-    bottom: 0,
-    zIndex: 50,
-    transition: "transform 0.3s",
+    width: 260, background: "linear-gradient(180deg, #0f2b5e, #1e40af)",
+    padding: "30px 24px", display: "flex", flexDirection: "column", justifyContent: "space-between",
+    position: "fixed", top: 0, left: 0, bottom: 0, zIndex: 50, transition: "transform 0.3s",
   },
   sidebarTop: { display: "flex", flexDirection: "column", gap: 40 },
   logoSection: { display: "flex", alignItems: "center", gap: 12 },
-  logoIcon: {
-    width: 40, height: 40, background: "rgba(255,255,255,0.2)", borderRadius: "50%",
-    display: "flex", justifyContent: "center", alignItems: "center", fontSize: 20,
-    backdropFilter: "blur(4px)",
-  },
+  logoIcon: { width: 40, height: 40, background: "rgba(255,255,255,0.2)", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center", fontSize: 20, backdropFilter: "blur(4px)" },
   logoText: { fontSize: 18, fontWeight: 700, color: "#fff", margin: 0 },
   logoSub: { fontSize: 10, color: "rgba(255,255,255,0.6)", margin: 0 },
   nav: { display: "flex", flexDirection: "column", gap: 6 },
-  navItem: {
-    padding: "12px 16px", borderRadius: 12, color: "rgba(255,255,255,0.75)",
-    fontSize: 14, fontWeight: 500, cursor: "pointer", display: "flex", transition: "all 0.2s",
-  },
+  navItem: { padding: "12px 16px", borderRadius: 12, color: "rgba(255,255,255,0.75)", fontSize: 14, fontWeight: 500, cursor: "pointer", display: "flex", transition: "all 0.2s" },
   navActive: { background: "rgba(255,255,255,0.15)", color: "#fff", fontWeight: 700 },
-
   profileWidget: { display: "flex", alignItems: "center", gap: 12, padding: 14 },
-  avatarCircle: {
-    width: 40, height: 40, background: "rgba(255,255,255,0.2)", borderRadius: "50%",
-    display: "flex", justifyContent: "center", alignItems: "center",
-    color: "rgba(255,255,255,0.75)",
-  },
+  avatarCircle: { width: 40, height: 40, minWidth: 40, minHeight: 40, maxWidth: 40, maxHeight: 40, background: "rgba(255,255,255,0.2)", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center", color: "rgba(255,255,255,0.75)", overflow: "hidden", flexShrink: 0 },
   profName: { fontSize: 14, fontWeight: 600, color: "#fff" },
-  profRole: { fontSize: 10, color: "rgba(255,255,255,0.6)" },
   logoutBtn: { background: "#ef4444", border: "none", cursor: "pointer", fontSize: 13, fontWeight: 600, color: "#fff", padding: "10px 16px", borderRadius: 10 },
-
   main: { flex: 1, marginLeft: 260, display: "flex", flexDirection: "column" },
-  header: {
-    display: "flex", alignItems: "center", justifyContent: "space-between",
-    padding: "14px 24px", background: "#fff", borderBottom: "1px solid #e2e8f0",
-    position: "sticky", top: 0, zIndex: 30,
-  },
+  header: { display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 24px", background: "#fff", borderBottom: "1px solid #e2e8f0", position: "sticky", top: 0, zIndex: 30 },
   headerLeft: { display: "flex", alignItems: "center", gap: 12 },
   menuBtn: { display: "none", background: "none", border: "none", cursor: "pointer", padding: 8, borderRadius: 8, color: "#475569" },
   greeting: { fontSize: 15, fontWeight: 600, color: "#0f172a", display: "inline" },
-  roleBadge: {
-    display: "inline-block", padding: "2px 10px", borderRadius: 20,
-    fontSize: 11, fontWeight: 600, color: "#fff",
-  },
+  roleBadge: { display: "inline-block", padding: "2px 10px", borderRadius: 20, fontSize: 11, fontWeight: 600, color: "#fff" },
   headerRight: { display: "flex", alignItems: "center", gap: 12 },
-  notifBtn: {
-    position: "relative", width: 36, height: 36, borderRadius: "50%", background: "#f1f5f9",
-    display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: "#64748b",
-  },
+  notifBtn: { position: "relative", width: 36, height: 36, borderRadius: "50%", background: "#f1f5f9", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: "#64748b" },
   notifDot: { position: "absolute", top: 8, right: 8, width: 8, height: 8, borderRadius: "50%", background: "#ef4444" },
-  avatarHeader: {
-    width: 36, height: 36, borderRadius: "50%", background: "#e0e7ff",
-    display: "flex", alignItems: "center", justifyContent: "center", color: "#2563eb",
-  },
+  avatarHeader: { width: 36, height: 36, borderRadius: "50%", background: "#e0e7ff", display: "flex", alignItems: "center", justifyContent: "center", color: "#2563eb" },
   content: { flex: 1, padding: 24 },
 };

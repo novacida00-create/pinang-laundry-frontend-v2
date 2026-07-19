@@ -84,7 +84,7 @@ export default function KaryawanPengaturan() {
           {editing ? (
             <div>
               <div style={styles.formGroup}>
-                <label style={styles.label}>Nama Lengkap</label>
+                <label style={styles.label}>Nama</label>
                 <input style={styles.input} value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
               </div>
               <div style={styles.formGroup}>
@@ -103,7 +103,7 @@ export default function KaryawanPengaturan() {
           ) : (
             <div style={styles.infoList}>
               <div style={styles.infoItem}>
-                <span style={styles.infoLabel}>Nama Lengkap</span>
+                <span style={styles.infoLabel}>Nama</span>
                 <span style={styles.infoValue}>{profile.name}</span>
               </div>
               <div style={styles.infoDivider} />
