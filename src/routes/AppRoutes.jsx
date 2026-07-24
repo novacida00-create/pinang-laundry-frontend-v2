@@ -39,7 +39,7 @@ export default function AppRoutes() {
         <Route path="/orderan" element={<Orderan />} />
         <Route path="/transaksi" element={<Transaksi />} />
         <Route path="/pelanggan" element={<Pelanggan />} />
-        <Route path="/karyawan" element={<Karyawan />} />
+        <Route path="/admin/karyawan" element={<Karyawan />} />
         <Route path="/laporan" element={<Laporan />} />
         <Route path="/pengaturan" element={<Pengaturan />} />
         <Route path="/karyawan/login" element={<KaryawanLoginPage />} />

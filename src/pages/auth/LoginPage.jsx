@@ -30,7 +30,7 @@ export default function LoginPage() {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (username === "admin" && password === "123456") {
+    if (username === "Admin" && password === "123456") {
       navigate("/admin");
     } else {
       alert("Username / password salah");

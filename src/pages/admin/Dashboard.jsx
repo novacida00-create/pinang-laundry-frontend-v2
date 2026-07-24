@@ -168,7 +168,7 @@ export default function Dashboard() {
             <div style={styles.navItem} onClick={() => navigate("/transaksi")}>
               <NavItem icon="creditCard" label="Transaksi" />
             </div>
-            <NavLink to="/karyawan" style={({ isActive }) => ({ ...styles.navItem, ...(isActive ? styles.navActive : {}) })}>
+            <NavLink to="/admin/karyawan" style={({ isActive }) => ({ ...styles.navItem, ...(isActive ? styles.navActive : {}) })}>
               <NavItem icon="idBadge2" label="Karyawan" />
             </NavLink>
             <NavLink to="/admin/layanan" style={({ isActive }) => ({ ...styles.navItem, ...(isActive ? styles.navActive : {}) })}>
@@ -329,7 +329,7 @@ export default function Dashboard() {
             <div style={styles.profileInfo}>
               <div style={styles.profileRow}>
                 <span style={styles.profileLabel}><Icon name="mail" /> Email</span>
-                <span>alex@pinanglaundry.com</span>
+                <span>sobariah@pinanglaundry.com</span>
               </div>
               <div style={styles.profileRow}>
                 <span style={styles.profileLabel}><Icon name="phone" /> Telepon</span>

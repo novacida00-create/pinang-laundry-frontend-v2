@@ -149,7 +149,7 @@ export default function Transaksi() {
             <NavLink to="/orderan" style={({ isActive }) => ({ ...styles.navItem, ...(isActive ? styles.navActive : {}) })}><NavItem icon="receipt" label="Orderan" /></NavLink>
             <NavLink to="/pelanggan" style={({ isActive }) => ({ ...styles.navItem, ...(isActive ? styles.navActive : {}) })}><NavItem icon="users" label="Pelanggan" /></NavLink>
             <div style={{ ...styles.navItem, background: "#3b82f6", color: "#fff", boxShadow: "0 10px 15px -3px rgba(59, 130, 246, 0.3)" }}><NavItem icon="creditCard" label="Transaksi" /></div>
-            <NavLink to="/karyawan" style={({ isActive }) => ({ ...styles.navItem, ...(isActive ? styles.navActive : {}) })}><NavItem icon="idBadge2" label="Karyawan" /></NavLink>
+            <NavLink to="/admin/karyawan" style={({ isActive }) => ({ ...styles.navItem, ...(isActive ? styles.navActive : {}) })}><NavItem icon="idBadge2" label="Karyawan" /></NavLink>
             <NavLink to="/admin/layanan" style={({ isActive }) => ({ ...styles.navItem, ...(isActive ? styles.navActive : {}) })}><NavItem icon="tag" label="Layanan" /></NavLink>
             <NavLink to="/laporan" style={({ isActive }) => ({ ...styles.navItem, ...(isActive ? styles.navActive : {}) })}><NavItem icon="chartBar" label="Laporan" /></NavLink>
             <NavLink to="/pengaturan" style={({ isActive }) => ({ ...styles.navItem, ...(isActive ? styles.navActive : {}) })}><NavItem icon="settings" label="Pengaturan" /></NavLink>

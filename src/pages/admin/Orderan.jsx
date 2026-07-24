@@ -175,7 +175,7 @@ Terima kasih telah menunggu!`
             <div style={styles.navItem} onClick={() => window.location.href='/transaksi'}>
               <NavItem icon="creditCard" label="Transaksi" />
             </div>
-            <NavLink to="/karyawan" style={({ isActive }) => ({ ...styles.navItem, ...(isActive ? styles.navActive : {}) })}>
+            <NavLink to="/admin/karyawan" style={({ isActive }) => ({ ...styles.navItem, ...(isActive ? styles.navActive : {}) })}>
               <NavItem icon="idBadge2" label="Karyawan" />
             </NavLink>
             <NavLink to="/admin/layanan" style={({ isActive }) => ({ ...styles.navItem, ...(isActive ? styles.navActive : {}) })}>

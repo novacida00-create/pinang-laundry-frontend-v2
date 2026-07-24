@@ -8,7 +8,7 @@ const faqData = [
   
   // Harga
   { keywords: ["harga", "biaya", "tarif", "cost", "price", "berapa", "rpm", "rp"], 
-    answer: "Harga Layanan Kami:\n\n• Cuci Kiloan: Rp 8.000/kg\n• Express: Rp 25.000/kg\n• Cuci Karpet: Rp 50.000/pcs\n• Cuci Sepatu: Rp 30.000/pcs\n• Cuci Boneka: Rp 10.000/pcs\n• Setrika Saja: Rp 5.000/kg" },
+    answer: "Harga Layanan Kami:\n\n• Cuci Kiloan: Rp 6.000/kg\n• Express: Rp 15.000/kg\n• Cuci Karpet: Rp 50.000/pcs\n• Cuci Sepatu: Rp 30.000/pcs\n• Cuci Boneka: Rp 10.000/pcs\n• Setrika Saja: Rp 5.000/kg" },
   
   // Layanan
   { keywords: ["layanan", "service", "jasa", "apa saja", "jenis"], 

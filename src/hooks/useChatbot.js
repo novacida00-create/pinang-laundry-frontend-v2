@@ -25,7 +25,7 @@ export default function useChatbot() {
     const msg = text.toLowerCase();
 
     if (msg.includes("harga")) {
-      return "Harga laundry mulai Rp 5.000/kg";
+      return "Harga laundry:\n• Cuci Kiloan: Rp 6.000/kg\n• Express: Rp 15.000/kg\n• Cuci Karpet: Rp 50.000/pcs\n• Cuci Sepatu: Rp 30.000/pcs\n• Setrika Saja: Rp 5.000/kg";
     }
 
     if (msg.includes("lama")) {
