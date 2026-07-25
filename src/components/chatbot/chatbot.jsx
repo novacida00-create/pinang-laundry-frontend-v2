@@ -7,7 +7,7 @@ const faqData = [
     answer: "Halo!\nSelamat datang di Pinang Laundry.\nAda yang bisa saya bantu?" },
   
   // Harga
-  { keywords: ["harga", "biaya", "tarif", "cost", "price", "berapa", "rpm", "rp"], 
+  { keywords: ["harga", "biaya", "tarif", "cost", "price", "rp", "berapa kg", "berapa per kg"], 
     answer: "Harga Layanan Kami:\n\n• Cuci Kiloan: Rp 6.000/kg\n• Express: Rp 15.000/kg\n• Cuci Karpet: Rp 50.000/pcs\n• Cuci Sepatu: Rp 30.000/pcs\n• Cuci Boneka: Rp 10.000/pcs\n• Setrika Saja: Rp 5.000/kg" },
   
   // Layanan
