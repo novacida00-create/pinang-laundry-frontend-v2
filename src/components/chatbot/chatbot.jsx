@@ -75,11 +75,6 @@ export default function Chatbot() {
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [list]);
-  const chatEndRef = useRef(null);
-
-  useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [list]);
 
   const getReply = (input) => {
     const lower = input.toLowerCase();
