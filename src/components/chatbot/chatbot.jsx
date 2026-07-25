@@ -15,7 +15,7 @@ const faqData = [
     answer: "Layanan Kami:\n\n✓ Cuci Kiloan (per kg)\n✓ Express (4 jam jadi)\n✓ Cuci Karpet\n✓ Cuci Sepatu\n✓ Cuci Boneka\n✓ Cuci Jaket\n✓ Cuci Jas\n✓ Setrika Saja" },
   
   // Waktu
-  { keywords: ["waktu", "lama", "proses", "selesai", "jam", "hari", "durasi", "estimasi"], 
+  { keywords: ["waktu", "lama proses", "selesai kapan", "berapa lama", "durasi", "estimasi"], 
     answer: "Waktu Proses:\n\n• Cuci Kiloan: 24 jam\n• Express: 4 jam\n• Cuci Karpet: 48 jam\n• Cuci Sepatu: 24 jam\n• Cuci Boneka: 24 jam\n• Cuci Jas: 48 jam" },
   
   // Cara Pesan
