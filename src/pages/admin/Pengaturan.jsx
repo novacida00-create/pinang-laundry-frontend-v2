@@ -315,13 +315,28 @@ export default function Pengaturan() {
             <div style={styles.toggleItem} onClick={() => toggleSetting("autoReminder")}>
               <div>
                 <div style={styles.toggleLabel}>Auto Reminder</div>
-                <div style={styles.toggleDesc}>Pengingat otomatis ke pelanggan</div>
+                <div style={styles.toggleDesc}>Pengingat otomatis ke pelanggan via WhatsApp</div>
               </div>
               <div style={settings.autoReminder ? styles.toggleOn : styles.toggleOff}>
                 {settings.autoReminder ? <Icon name="bell" /> : <Icon name="bellOff" />}
               </div>
             </div>
           </div>
+          {settings.autoReminder && (
+            <div style={{ marginTop: 16 }}>
+              <button style={styles.btnReminder} onClick={async () => {
+                try {
+                  const res = await fetch("/api/auto-reminder", { method: "POST" });
+                  const data = await res.json();
+                  alert(data.message || "Reminder selesai dikirim!");
+                } catch (err) {
+                  alert("Gagal mengirim reminder: " + err.message);
+                }
+              }}>
+                <Icon name="send" /> Kirim Reminder Sekarang
+              </button>
+            </div>
+          )}
         </div>
 
         <div style={styles.card}>
@@ -401,5 +416,6 @@ const styles = {
   toggleLabel: { fontSize: 14, fontWeight: 700 },
   toggleDesc: { fontSize: 12, color: "#94a3b8" },
   toggleOn: { width: 40, height: 24, background: "#22c55e", borderRadius: 12, display: "flex", justifyContent: "center", alignItems: "center", fontSize: 12, color: "#fff" },
-  toggleOff: { width: 40, height: 24, background: "#94a3b8", borderRadius: 12, display: "flex", justifyContent: "center", alignItems: "center", fontSize: 12, color: "#fff" }
+  toggleOff: { width: 40, height: 24, background: "#94a3b8", borderRadius: 12, display: "flex", justifyContent: "center", alignItems: "center", fontSize: 12, color: "#fff" },
+  btnReminder: { background: "#22c55e", color: "#fff", border: "none", padding: "12px 24px", borderRadius: 12, fontWeight: 700, fontSize: 14, cursor: "pointer", display: "flex", alignItems: "center", gap: 8 }
 };
