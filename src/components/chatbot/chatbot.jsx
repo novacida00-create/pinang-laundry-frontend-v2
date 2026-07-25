@@ -69,6 +69,12 @@ export default function Chatbot() {
   const [list, setList] = useState([
     { from: "bot", text: "Halo!\nSelamat datang di Pinang Laundry.\nKetik pertanyaan Anda atau pilih dari menu:\n\n• Cara pesan\n• Harga layanan\n• Status pesanan\n• Pembayaran" }
   ]);
+  const [loading, setLoading] = useState(false);
+  const chatEndRef = useRef(null);
+
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [list]);
   const chatEndRef = useRef(null);
 
   useEffect(() => {
@@ -89,12 +95,37 @@ export default function Chatbot() {
     return "Maaf, saya tidak mengerti pertanyaan Anda.\n\nCoba tanyakan:\n• Cara pesan layanan\n• Harga laundry\n• Status pesanan\n• Pembayaran\n• Lama waktu proses\n• Cara hubungi kami";
   };
 
-  const send = () => {
+  const send = async () => {
     if (!msg.trim()) return;
     
-    const reply = getReply(msg);
-    setList([...list, { from: "user", text: msg }, { from: "bot", text: reply }]);
+    const userMsg = msg;
+    setList(prev => [...prev, { from: "user", text: userMsg }]);
     setMsg("");
+    
+    // cek FAQ dulu (keyword matching)
+    const localReply = getReply(userMsg);
+    
+    // kalau ketemu di FAQ, langsung tampilkan
+    if (!localReply.includes("Maaf, saya tidak mengerti")) {
+      setList(prev => [...prev, { from: "bot", text: localReply }]);
+      return;
+    }
+    
+    // kalau ga ketemu, kirim ke AI (OpenAI)
+    setLoading(true);
+    try {
+      const res = await fetch("/api/chatbot", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userMsg }),
+      });
+      const data = await res.json();
+      const aiReply = data.reply || "Maaf, terjadi kesalahan. Coba tanyakan hal lain.";
+      setList(prev => [...prev, { from: "bot", text: aiReply }]);
+    } catch {
+      setList(prev => [...prev, { from: "bot", text: "Maaf, terjadi kesalahan koneksi. Coba lagi nanti." }]);
+    }
+    setLoading(false);
   };
 
   const handleKeyPress = (e) => {
@@ -123,6 +154,11 @@ export default function Chatbot() {
                 </div>
               </div>
             ))}
+            {loading && (
+              <div style={styles.botMsg}>
+                <div style={styles.botBubble}>Mengetik...</div>
+              </div>
+            )}
             <div ref={chatEndRef} />
           </div>
 
