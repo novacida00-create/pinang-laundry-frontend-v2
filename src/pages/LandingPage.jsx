@@ -78,8 +78,9 @@ export default function LandingPage() {
             <a href="#services" style={styles.mobileNavLink} onClick={() => setMobileMenu(false)}>Layanan</a>
             <a href="#about" style={styles.mobileNavLink} onClick={() => setMobileMenu(false)}>Tentang</a>
             <a href="#contact" style={styles.mobileNavLink} onClick={() => setMobileMenu(false)}>Kontak</a>
-            <button onClick={() => { setMobileMenu(false); navigate("/customer/login"); }} style={styles.mobileOrderBtn}>Pesan Sekarang</button>
+            <button onClick={() => { setMobileMenu(false); navigate("/login"); }} style={styles.mobileOrderBtn}>Login Admin</button>
             <button onClick={() => { setMobileMenu(false); navigate("/karyawan/login"); }} style={styles.mobileOrderBtn}>Login Karyawan</button>
+            <button onClick={() => { setMobileMenu(false); navigate("/customer/login"); }} style={styles.mobileOrderBtn}>Pesan Sekarang</button>
           </div>
         )}
       </header>
