@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Icon from "../../utils/icons.jsx";
 
 export default function LoginPage() {
   useEffect(() => {
@@ -58,21 +57,21 @@ export default function LoginPage() {
         </div>
         <div style={styles.cardRight}>
           <h2 style={styles.title}>Login Admin</h2>
-          <p style={styles.subtitle}>Selamat datang kembali!</p>
+          <p style={styles.subtitle}>Masuk ke panel admin</p>
 
-          <label style={styles.label}><Icon name="user" size={14} /> Username</label>
+          <label style={styles.label}>Username</label>
           <input
             type="text"
-            placeholder="Username"
+            placeholder="Masukkan username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             style={styles.input}
           />
 
-          <label style={styles.label}><Icon name="lock" size={14} /> Password</label>
+          <label style={styles.label}>Password</label>
           <input
             type="password"
-            placeholder="Password"
+            placeholder="Masukkan password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             style={styles.input}
@@ -81,6 +80,11 @@ export default function LoginPage() {
           <button type="button" onClick={handleLogin} style={styles.button}>
             Login
           </button>
+
+          <div style={styles.footer}>
+            <span style={styles.footerText}>Bukan admin? </span>
+            <span style={styles.link} onClick={() => navigate("/")}>Kembali ke beranda</span>
+          </div>
         </div>
       </div>
     </div>
@@ -101,10 +105,13 @@ export default function LoginPage() {
   cardLeftStats: { display: "flex", gap: 32, marginTop: 8 },
   cardLeftStatNum: { display: "block", fontSize: 22, fontWeight: 700, textAlign: "center" },
   cardLeftStatLabel: { display: "block", fontSize: 12, color: "rgba(255,255,255,0.7)", textAlign: "center", letterSpacing: "+0.3px" },
-  cardRight: { flex: 1, padding: "40px 36px", display: "flex", flexDirection: "column", gap: 16, justifyContent: "center" },
+  cardRight: { flex: 1, padding: "40px 36px", display: "flex", flexDirection: "column", gap: 12, justifyContent: "center" },
   title: { fontSize: 22, fontWeight: 600, color: "#1e293b", margin: 0, letterSpacing: "-0.5px" },
   subtitle: { fontSize: 16, color: "#64748b", margin: 0, lineHeight: 1.65, letterSpacing: "+0.3px" },
   label: { fontSize: 14, fontWeight: 400, color: "#475569", letterSpacing: "+0.3px" },
   input: { width: "100%", padding: "14px 16px", borderRadius: 14, border: "1px solid #e2e8f0", fontSize: 16, outline: "none", background: "#f8fafc", boxSizing: "border-box", lineHeight: 1.65 },
   button: { width: "100%", padding: 14, marginTop: 12, background: "linear-gradient(135deg, #3b82f6, #6366f1)", color: "white", border: "none", borderRadius: 14, fontSize: 16, fontWeight: 700, cursor: "pointer", boxShadow: "0 4px 12px rgba(59,130,246,0.3)", transition: "all 0.2s ease" },
+  footer: { textAlign: "center", marginTop: 8 },
+  footerText: { fontSize: 14, color: "#64748b", lineHeight: 1.65 },
+  link: { fontSize: 14, color: "#3b82f6", fontWeight: 400, cursor: "pointer" },
 };
