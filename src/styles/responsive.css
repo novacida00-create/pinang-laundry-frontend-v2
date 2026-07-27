@@ -68,9 +68,8 @@
     width: 100% !important;
   }
 
-  /* Cards: overflow hidden */
-  .admin-main section, .admin-main div[style*="background: #fff"] {
-    overflow: hidden !important;
+  /* Card: no overflow hidden (blocks button clicks) */
+  .admin-main section {
     box-sizing: border-box !important;
   }
 
@@ -253,6 +252,14 @@
   .admin-main button[style*="padding"] {
     font-size: 12px !important;
     padding: 10px 14px !important;
+  }
+
+  /* Action buttons in table: bigger tap target */
+  .admin-main td button {
+    min-width: 36px !important;
+    min-height: 36px !important;
+    padding: 8px !important;
+    font-size: 16px !important;
   }
 }
 
