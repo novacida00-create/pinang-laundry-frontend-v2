@@ -78,16 +78,30 @@
 
   /* Modal: bottom sheet */
   div[style*="position: fixed"][style*="z-index: 1000"],
-  div[style*="position: fixed"][style*="z-index: 999"] {
+  div[style*="position: fixed"][style*="z-index: 999"],
+  div[style*="position: fixed"][style*="z-index: 1001"] {
     align-items: flex-end !important;
   }
-  div[style*="border-radius: 28px"][style*="width: 440"] {
-    width: 100% !important;
-    max-width: 100% !important;
+  div[style*="border-radius: 20px"][style*="width: 400"],
+  div[style*="border-radius: 28px"][style*="width: 440"],
+  div[style*="background: white"][style*="border-radius: 20px"] {
+    width: 94% !important;
+    max-width: 94% !important;
     border-radius: 20px 20px 0 0 !important;
     padding: 24px 20px !important;
     max-height: 85vh !important;
     overflow-y: auto !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Modal input full width */
+  div[style*="background: white"][style*="border-radius: 20px"] input,
+  div[style*="background: white"][style*="border-radius: 20px"] select,
+  div[style*="background: white"][style*="border-radius: 20px"] textarea {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    font-size: 15px !important;
+    padding: 12px 14px !important;
   }
 
   /* Page header: stack */
