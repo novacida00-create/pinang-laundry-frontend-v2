@@ -51,6 +51,8 @@ export default function Dashboard() {
     pelanggan: "0",
     selesai: "0"
   });
+  const [chartData, setChartData] = useState([]);
+
   useEffect(() => {
     loadStats();
   }, [refreshKey]);
@@ -86,6 +88,27 @@ export default function Dashboard() {
         pelanggan: totalPelanggan.toString(),
         selesai: orderSelesai.toString()
       });
+
+      // bikin data grafik dari orders berdasarkan bulan
+      const bulanNama = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
+      const pendapatanPerBulan = {};
+      orders.filter(o => o.status === "Selesai").forEach(o => {
+        const tgl = o.date || o.created_at || o.tanggal;
+        if (!tgl) return;
+        const d = new Date(tgl);
+        const key = `${bulanNama[d.getMonth()]} ${d.getFullYear()}`;
+        pendapatanPerBulan[key] = (pendapatanPerBulan[key] || 0) + (parseInt(o.total) || 0);
+      });
+
+      // ambil 6 bulan terakhir
+      const now = new Date();
+      const dataGrafik = [];
+      for (let i = 5; i >= 0; i--) {
+        const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+        const key = `${bulanNama[d.getMonth()]} ${d.getFullYear()}`;
+        dataGrafik.push({ name: key, pendapatan: pendapatanPerBulan[key] || 0 });
+      }
+      setChartData(dataGrafik);
     } catch {
       setStats({
         pendapatan: "Rp 0",
@@ -378,14 +401,7 @@ export default function Dashboard() {
 }
 
 /* --- DATA --- */
-const chartData = [
-  { name: 'Nov 2025', pendapatan: 14000000 },
-  { name: 'Des 2025', pendapatan: 16500000 },
-  { name: 'Jan 2026', pendapatan: 19500000 },
-  { name: 'Feb 2026', pendapatan: 20000000 },
-  { name: 'Mar 2026', pendapatan: 23000000 },
-  { name: 'Apr 2026', pendapatan: 24850000 },
-];
+// chartData sekarang diambil dari API, bukan hardcoded lagi
 
 /* --- COMPONENTS --- */
 const NavItem = ({ icon, label }) => (
