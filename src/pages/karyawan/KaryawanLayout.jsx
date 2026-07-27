@@ -44,7 +44,13 @@ export default function KaryawanLayout() {
       <div className="main-sidebar-wrap" style={{ width: 260, flexShrink: 0 }}>
         <aside style={styles.sidebar}>
           <div>
-            <div style={styles.logo}>🧺 <b>Pinang Laundry</b></div>
+            <div style={styles.logo}>
+              <div style={{ width: 40, height: 40, background: "rgba(255,255,255,0.2)", borderRadius: 12, display: "flex", justifyContent: "center", alignItems: "center", fontSize: 22, flexShrink: 0 }}>🧺</div>
+              <div>
+                <div style={{ fontSize: 16, fontWeight: 700, lineHeight: 1.2 }}>Pinang Laundry</div>
+                <div style={{ fontSize: 11, opacity: 0.7 }}>Laundry Management</div>
+              </div>
+            </div>
             <nav style={styles.nav}>
               {(menuItemsByRole[karyawan.role] || menuItemsByRole["Staff (Kasir)"]).map((item) => {
                 const active = location.pathname === item.path;
@@ -94,7 +100,7 @@ const styles = {
     zIndex: 9999,
     overflowY: "auto",
   },
-  logo: { fontSize: 18, marginBottom: 20 },
+  logo: { fontSize: 18, marginBottom: 20, display: "flex", alignItems: "center", gap: 12 },
   nav: { display: "flex", flexDirection: "column", gap: 8 },
   link: {
     padding: "10px",

@@ -13,7 +13,13 @@ export default function Sidebar() {
 
   return (
     <aside style={styles.sidebar}>
-      <div style={styles.logo}>🧺 <b>Pinang Laundry</b></div>
+      <div style={styles.logo}>
+        <div style={{ width: 40, height: 40, background: "rgba(255,255,255,0.2)", borderRadius: 12, display: "flex", justifyContent: "center", alignItems: "center", fontSize: 22, flexShrink: 0 }}>🧺</div>
+        <div>
+          <div style={{ fontSize: 16, fontWeight: 700, lineHeight: 1.2 }}>Pinang Laundry</div>
+          <div style={{ fontSize: 11, opacity: 0.7 }}>Laundry Management</div>
+        </div>
+      </div>
 
       <nav style={styles.nav}>
         {menu.map((item, i) => (
@@ -49,6 +55,9 @@ const styles = {
   logo: {
     fontSize: 18,
     marginBottom: 20,
+    display: "flex",
+    alignItems: "center",
+    gap: 12,
   },
 
   nav: {
