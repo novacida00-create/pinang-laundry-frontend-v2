@@ -63,13 +63,13 @@ export default function KaryawanLayout() {
             </nav>
           </div>
           <div style={{ borderTop: "1px solid rgba(255,255,255,0.2)", paddingTop: 16, marginTop: 20, position: "absolute", bottom: 20, left: 20, right: 20 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
-              <div style={{ width: 36, height: 36, background: "rgba(255,255,255,0.2)", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center", flexShrink: 0 }}>
-                <Icon name="user" size={18} />
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <div style={{ width: 34, height: 34, background: "rgba(255,255,255,0.2)", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center", flexShrink: 0 }}>
+                <Icon name="user" size={16} />
               </div>
-              <div style={{ fontSize: 14, fontWeight: 600, color: "#fff" }}>{karyawan.name || "Karyawan"}</div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: "#fff", flex: 1, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{karyawan.name || "Karyawan"}</div>
+              <button onClick={handleLogout} style={{ padding: "6px 12px", background: "#ef4444", border: "none", borderRadius: 6, color: "#fff", fontWeight: 600, fontSize: 12, cursor: "pointer", flexShrink: 0 }}>Logout</button>
             </div>
-            <button onClick={handleLogout} style={{ width: "100%", padding: "10px", background: "#ef4444", border: "none", borderRadius: 8, color: "#fff", fontWeight: 600, cursor: "pointer" }}>Logout</button>
           </div>
         </aside>
       </div>
