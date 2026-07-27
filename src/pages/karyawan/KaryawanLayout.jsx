@@ -95,6 +95,7 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
+    overflowY: "auto",
   },
   logo: { fontSize: 18, marginBottom: 20 },
   nav: { display: "flex", flexDirection: "column", gap: 8 },
