@@ -265,9 +265,14 @@ export default function Transaksi() {
           </table>
           <div style={styles.pagination}>
             <span onClick={() => setCurrentPage(Math.max(1, currentPage - 1))} style={{cursor: currentPage > 1 ? "pointer" : "default", opacity: currentPage > 1 ? 1 : 0.5}}>‹</span>
-            {Array.from({ length: totalPages || 1 }, (_, i) => i + 1).map(page => (
-              <span key={page} onClick={() => setCurrentPage(page)} style={page === currentPage ? styles.pageActive : {cursor: "pointer"}}>{page}</span>
-            ))}
+            {(() => {
+              let start = Math.max(1, currentPage - 2);
+              let end = Math.min(totalPages || 1, start + 4);
+              start = Math.max(1, end - 4);
+              return Array.from({ length: end - start + 1 }, (_, i) => start + i).map(page => (
+                <span key={page} onClick={() => setCurrentPage(page)} style={page === currentPage ? styles.pageActive : {cursor: "pointer"}}>{page}</span>
+              ));
+            })()}
             <span onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))} style={{cursor: currentPage < totalPages ? "pointer" : "default", opacity: currentPage < totalPages ? 1 : 0.5}}>›</span>
           </div>
         </section>

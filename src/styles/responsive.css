@@ -74,24 +74,39 @@
     box-sizing: border-box !important;
   }
 
-  /* Card header: stack on mobile */
+  /* Card header: wrap on mobile */
   .admin-main div[style*="justify-content: space-between"][style*="align-items: center"] {
-    flex-direction: column !important;
-    align-items: stretch !important;
+    flex-wrap: wrap !important;
     gap: 12px !important;
   }
 
-  /* Action buttons: stack */
+  /* Action buttons: wrap and full width */
   .admin-main div[style*="display: flex"][style*="gap: 12"] {
     flex-wrap: wrap !important;
+    width: 100% !important;
   }
 
-  /* btnAdd & search: full width */
-  .admin-main button[style*="background: #3b82f6"],
-  .admin-main input[placeholder*="Cari"] {
+  /* btnAdd: full width */
+  .admin-main button[style*="background: #3b82f6"] {
     width: 100% !important;
     box-sizing: border-box !important;
     text-align: center !important;
+  }
+
+  /* Search input: full width */
+  .admin-main input[placeholder*="Cari"] {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Pagination: horizontal */
+  .admin-main div[style*="justify-content: center"][style*="display: flex"],
+  .admin-main div[style*="text-align: center"] {
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    overflow-x: auto !important;
   }
 
   /* Stats row: stack */
