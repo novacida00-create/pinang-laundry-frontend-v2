@@ -85,6 +85,7 @@ const styles = {
   sidebar: {
     width: 260,
     height: "100vh",
+    minHeight: "100vh",
     position: "fixed",
     top: 0,
     left: 0,

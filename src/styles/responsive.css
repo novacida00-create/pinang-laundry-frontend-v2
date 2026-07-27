@@ -315,9 +315,11 @@
 @media (max-width: 768px) {
   /* karyawan sidebar: force full height like admin */
   .main-sidebar-wrap aside[style*="position: fixed"] {
-    height: 100vh !important;
-    min-height: 100vh !important;
-    max-height: 100vh !important;
+    height: 100dvh !important;
+    min-height: 100dvh !important;
+    max-height: 100dvh !important;
+    width: 280px !important;
+    z-index: 10000 !important;
   }
 
   /* table scroll */
