@@ -32,6 +32,10 @@ export default function Laporan() {
 
   const [showPrintModal, setShowPrintModal] = useState(false);
   const [printPeriod, setPrintPeriod] = useState("harian");
+  const [printStartDate, setPrintStartDate] = useState(() => {
+    const d = new Date(); d.setDate(d.getDate() - 7);
+    return d.toISOString().slice(0, 10);
+  });
   const [allLaporan, setAllLaporan] = useState([]);
   const [layananOptions, setLayananOptions] = useState([]);
 
@@ -446,6 +450,7 @@ export default function Laporan() {
                 { value: "mingguan", icon: "calendar", label: "Mingguan", desc: "Laporan transaksi 7 hari terakhir" },
                 { value: "bulanan", icon: "chartBar", label: "Bulanan", desc: "Laporan transaksi bulan ini" },
                 { value: "tahunan", icon: "chartLine", label: "Tahunan", desc: "Laporan transaksi tahun ini" },
+                { value: "custom", icon: "calendar", label: "Pilih Tanggal", desc: "Pilih tanggal mulai cetak laporan" },
               ].map(p => (
                 <div
                   key={p.value}
@@ -459,6 +464,18 @@ export default function Laporan() {
                   <div style={{ fontSize: 11, color: "#64748b" }}>{p.desc}</div>
                 </div>
               ))}
+              {printPeriod === "custom" && (
+                <div style={{ padding: "12px 16px", background: "#f8fafc", borderRadius: 12, border: "1px solid #e2e8f0" }}>
+                  <label style={{ fontSize: 12, fontWeight: 700, color: "#64748b", display: "block", marginBottom: 6 }}>Tanggal Mulai</label>
+                  <input
+                    type="date"
+                    value={printStartDate}
+                    onChange={(e) => setPrintStartDate(e.target.value)}
+                    style={{ width: "100%", padding: "10px 14px", borderRadius: 10, border: "1px solid #e2e8f0", fontSize: 13 }}
+                  />
+                  <div style={{ fontSize: 11, color: "#94a3b8", marginTop: 6 }}>Cetak dari tanggal ini sampai hari ini</div>
+                </div>
+              )}
             </div>
             <div style={{ display: "flex", gap: 12, marginTop: 20 }}>
               <button style={styles.modalCancel} onClick={() => setShowPrintModal(false)}>Batal</button>
@@ -479,6 +496,10 @@ export default function Laporan() {
                     if (printPeriod === "mingguan") { const w = new Date(today); w.setDate(w.getDate()-7); return itemDate >= w && itemDate <= today; }
                     if (printPeriod === "bulanan") return itemDate.getMonth() === today.getMonth() && itemDate.getFullYear() === today.getFullYear();
                     if (printPeriod === "tahunan") return itemDate.getFullYear() === today.getFullYear();
+                    if (printPeriod === "custom") {
+                      const startDate = new Date(printStartDate + "T00:00:00");
+                      return itemDate >= startDate && itemDate <= today;
+                    }
                     return true;
                   });
                 };
@@ -499,10 +520,14 @@ export default function Laporan() {
                   if (printPeriod === "mingguan") { const w = new Date(today); w.setDate(w.getDate()-7); return `${w.getDate()} ${bulanList[w.getMonth()]} - ${today.getDate()} ${bulanList[today.getMonth()]} ${today.getFullYear()}`; }
                   if (printPeriod === "bulanan") return `${bulanList[today.getMonth()]} ${today.getFullYear()}`;
                   if (printPeriod === "tahunan") return `Tahun ${today.getFullYear()}`;
+                  if (printPeriod === "custom") {
+                    const sd = new Date(printStartDate + "T00:00:00");
+                    return `${sd.getDate()} ${bulanList[sd.getMonth()]} - ${today.getDate()} ${bulanList[today.getMonth()]} ${today.getFullYear()}`;
+                  }
                   return "Semua Data";
                 };
 
-                const label = { harian: "Harian", mingguan: "Mingguan", bulanan: "Bulanan", tahunan: "Tahunan" }[printPeriod] || "Semua";
+                const label = { harian: "Harian", mingguan: "Mingguan", bulanan: "Bulanan", tahunan: "Tahunan", custom: "Pilih Tanggal" }[printPeriod] || "Semua";
                 setShowPrintModal(false);
 
                 pw.document.write(`
