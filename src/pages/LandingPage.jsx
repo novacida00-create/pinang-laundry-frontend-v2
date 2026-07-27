@@ -78,9 +78,11 @@ export default function LandingPage() {
             <a href="#services" style={styles.mobileNavLink} onClick={() => setMobileMenu(false)}>Layanan</a>
             <a href="#about" style={styles.mobileNavLink} onClick={() => setMobileMenu(false)}>Tentang</a>
             <a href="#contact" style={styles.mobileNavLink} onClick={() => setMobileMenu(false)}>Kontak</a>
-            <button onClick={() => { setMobileMenu(false); navigate("/login"); }} style={styles.mobileOrderBtn}>Login Admin</button>
-            <button onClick={() => { setMobileMenu(false); navigate("/karyawan/login"); }} style={styles.mobileOrderBtn}>Login Karyawan</button>
-            <button onClick={() => { setMobileMenu(false); navigate("/customer/login"); }} style={styles.mobileOrderBtn}>Pesan Sekarang</button>
+            <div style={styles.mobileLoginGroup}>
+              <button onClick={() => { setMobileMenu(false); navigate("/login"); }} style={styles.mobileAdminBtn}>Login Admin</button>
+              <button onClick={() => { setMobileMenu(false); navigate("/karyawan/login"); }} style={styles.mobileKaryawanBtn}>Login Karyawan</button>
+            </div>
+            <button onClick={() => { setMobileMenu(false); navigate("/customer/login"); }} style={styles.mobileOrderBtn}>Pesan Sekarang 🧺</button>
           </div>
         )}
       </header>
@@ -362,7 +364,10 @@ const styles = {
   mobileToggle: { display: "none", background: "none", border: "none", fontSize: 24, cursor: "pointer" },
   mobileMenu: { display: "flex", flexDirection: "column", gap: 12, padding: "16px 24px", background: "#fff", borderTop: "1px solid #f1f5f9" },
   mobileNavLink: { padding: "12px 0", color: "#64748b", textDecoration: "none", fontWeight: 600, cursor: "pointer" },
-  mobileOrderBtn: { padding: "14px 20px", borderRadius: 10, border: "none", background: "#3b82f6", color: "#fff", fontWeight: 700, cursor: "pointer", fontSize: 14, textAlign: "center" },
+  mobileOrderBtn: { padding: "14px 20px", borderRadius: 10, border: "none", background: "#22c55e", color: "#fff", fontWeight: 700, cursor: "pointer", fontSize: 14, textAlign: "center" },
+  mobileLoginGroup: { display: "flex", gap: 10 },
+  mobileAdminBtn: { flex: 1, padding: "14px 12px", borderRadius: 10, border: "2px solid #3b82f6", background: "#3b82f6", color: "#fff", fontWeight: 700, cursor: "pointer", fontSize: 13, textAlign: "center" },
+  mobileKaryawanBtn: { flex: 1, padding: "14px 12px", borderRadius: 10, border: "2px solid #8b5cf6", background: "#8b5cf6", color: "#fff", fontWeight: 700, cursor: "pointer", fontSize: 13, textAlign: "center" },
 
   hero: { display: "flex", alignItems: "center", justifyContent: "center", padding: "0 10%", backgroundImage: "url('/store-bg.png')", backgroundSize: "cover", backgroundPosition: "center", position: "relative", minHeight: "100vh", width: "100%" },
   heroContent: { flex: 1, paddingLeft: 120 },
