@@ -65,11 +65,13 @@ export default function Pelanggan() {
         const key = (p.email || p.name || "").toLowerCase();
         if (orderMap.has(key)) {
           const c = orderMap.get(key);
+          c.id = p.id;
           c.phone = p.phone || c.phone;
           c.address = p.address || c.address;
           c.status = p.status || "Aktif";
         } else {
           orderMap.set(key, {
+            id: p.id,
             name: p.name,
             email: p.email || "",
             phone: p.phone || "",
