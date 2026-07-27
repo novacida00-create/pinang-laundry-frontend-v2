@@ -9,7 +9,7 @@ const testimonials = [
   { name: "Dewi Lestari", text: "Sudah 2 tahun langganan, tidak pernah kecewa.", rating: 5 },
 ];
 
-const serviceIcons = { "Cuci Kiloan": "👕", "Express": "⚡", "Cuci Lipat": "📦", "Cuci Setrika": "🔥", "Cuci Karpet": "🟤", "Cuci Jaket": "🧥", "Cuci Jas": "🤵", "Setrika Saja": "👔" };
+const serviceIcons = { "Cuci Kiloan": "👕", "Express": "⚡", "Cuci Boneka": "🧸", "Cuci Setrika": "🔥", "Cuci Karpet": "🟤", "Cuci Jaket": "🧥", "Cuci Jas": "🤵", "Setrika Saja": "👔" };
 
 const allServices = [
   { icon: "tshirt", name: "Cuci Kiloan", price: "Rp 6.000/kg", waktu: "24 jam", desc: "Cuci berdasarkan berat, cocok untuk baju harian" },
