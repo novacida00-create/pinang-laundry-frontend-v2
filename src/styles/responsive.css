@@ -313,6 +313,13 @@
 /* ============ KARYAWAN MOBILE (sudah pakai class admin: main-layout, main-content, mt-i, mt-l) ============ */
 
 @media (max-width: 768px) {
+  /* karyawan sidebar: force full height like admin */
+  .main-sidebar-wrap aside[style*="position: fixed"] {
+    height: 100vh !important;
+    min-height: 100vh !important;
+    max-height: 100vh !important;
+  }
+
   /* table scroll */
   .main-content table {
     display: block !important;

@@ -56,7 +56,7 @@ export default function KaryawanLayout() {
               })}
             </nav>
           </div>
-          <div style={{ borderTop: "1px solid rgba(255,255,255,0.2)", paddingTop: 16, marginTop: 20 }}>
+          <div style={{ borderTop: "1px solid rgba(255,255,255,0.2)", paddingTop: 16, marginTop: 20, position: "absolute", bottom: 20, left: 20, right: 20 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
               <div style={{ width: 36, height: 36, background: "rgba(255,255,255,0.2)", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center", flexShrink: 0 }}>
                 <Icon name="user" size={18} />
@@ -92,9 +92,6 @@ const styles = {
     color: "white",
     padding: 20,
     zIndex: 9999,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
     overflowY: "auto",
   },
   logo: { fontSize: 18, marginBottom: 20 },
