@@ -3,16 +3,22 @@ import Icon from "../../utils/icons";
 
 export default function KaryawanLaporan() {
   const [laporan, setLaporan] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
-  // ambil data laporan dari api
   useEffect(() => {
     fetch("/api/laporan").then(r => r.json()).then(setLaporan).catch(() => {});
   }, []);
 
   const formatRp = (n) => "Rp " + Number(n || 0).toLocaleString("id-ID");
-
-  // hitung total pendapatan dari semua transaksi
   const totalPendapatan = laporan.reduce((s, l) => s + Number(l.total || 0), 0);
+
+  const totalPages = Math.ceil(laporan.length / itemsPerPage);
+  const paginatedLaporan = laporan.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
+  const goToPage = (page) => {
+    if (page >= 1 && page <= totalPages) setCurrentPage(page);
+  };
 
   return (
     <div>
@@ -42,7 +48,7 @@ export default function KaryawanLaporan() {
               </tr>
             </thead>
             <tbody>
-              {laporan.map((l) => (
+              {paginatedLaporan.map((l) => (
                 <tr key={l.id}>
                   <td style={styles.td}>{l.tanggal}</td>
                   <td style={styles.td}>{l.pelanggan}</td>
@@ -59,9 +65,30 @@ export default function KaryawanLaporan() {
                   </td>
                 </tr>
               ))}
+              {paginatedLaporan.length === 0 && (
+                <tr><td colSpan={7} style={{ ...styles.td, textAlign: "center", color: "#94a3b8" }}>Belum ada laporan</td></tr>
+              )}
             </tbody>
           </table>
         </div>
+
+        {totalPages > 1 && (
+          <div style={styles.pagination}>
+            <span onClick={() => goToPage(currentPage - 1)} style={{ cursor: currentPage > 1 ? "pointer" : "default", opacity: currentPage > 1 ? 1 : 0.5 }}>&#8249;</span>
+            {(() => {
+              let start = Math.max(1, currentPage - 2);
+              let end = Math.min(totalPages, start + 4);
+              if (end - start < 4) start = Math.max(1, end - 4);
+              return Array.from({ length: end - start + 1 }, (_, i) => {
+                const page = start + i;
+                return (
+                  <span key={page} onClick={() => goToPage(page)} style={page === currentPage ? styles.pageActive : { cursor: "pointer" }}>{page}</span>
+                );
+              });
+            })()}
+            <span onClick={() => goToPage(currentPage + 1)} style={{ cursor: currentPage < totalPages ? "pointer" : "default", opacity: currentPage < totalPages ? 1 : 0.5 }}>&#8250;</span>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -82,4 +109,6 @@ const styles = {
   th: { textAlign: "left", padding: "10px 12px", fontSize: 12, fontWeight: 600, color: "#64748b", borderBottom: "2px solid #e2e8f0", whiteSpace: "nowrap" },
   td: { padding: "10px 12px", fontSize: 13, color: "#334155", borderBottom: "1px solid #f1f5f9" },
   badge: { display: "inline-block", padding: "3px 10px", borderRadius: 20, fontSize: 11, fontWeight: 600 },
+  pagination: { display: "flex", justifyContent: "center", alignItems: "center", gap: 6, marginTop: 16, flexWrap: "nowrap" },
+  pageActive: { width: 28, height: 28, background: "#3b82f6", color: "#fff", display: "flex", justifyContent: "center", alignItems: "center", borderRadius: 8, fontWeight: 700 },
 };

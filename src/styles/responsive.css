@@ -307,3 +307,6 @@
   .contact-wrap .footer-content { flex-direction: column !important; gap: 24px !important; }
   .contact-wrap .contact-grid { flex-direction: column !important; }
 }
+
+/* ============ KARYAWAN LAYOUT ============ */
+/* handled by React state + inline styles in KaryawanLayout.jsx */
