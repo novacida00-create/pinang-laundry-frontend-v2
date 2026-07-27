@@ -46,9 +46,9 @@ export default function LoginPage() {
           <h2 style={styles.cardLeftTitle}>Pinang Laundry</h2>
           <p style={styles.cardLeftSub}>Bersih, Cepat, Terpercaya</p>
           <div style={styles.cardLeftIcons}>
-            <span style={styles.cardLeftIconSmall}><Icon name="tshirt" size={28} /></span>
-            <span style={styles.cardLeftIconSmall}><Icon name="shirt" size={28} /></span>
-            <span style={styles.cardLeftIconSmall}><Icon name="jacket" size={28} /></span>
+            <span style={styles.cardLeftIconSmall}>&#x1F455;</span>
+            <span style={styles.cardLeftIconSmall}>&#x1F456;</span>
+            <span style={styles.cardLeftIconSmall}>&#x1F9E5;</span>
           </div>
           <div style={styles.cardLeftStats}>
             <div><span style={styles.cardLeftStatNum}>Admin</span><span style={styles.cardLeftStatLabel}>Panel</span></div>
