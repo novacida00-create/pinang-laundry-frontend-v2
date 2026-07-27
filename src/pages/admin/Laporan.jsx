@@ -467,18 +467,40 @@ export default function Laporan() {
                 if (!pw) { alert("Izinkan popup untuk mencetak laporan"); return; }
 
                 const bulanList = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
-                const formatDate = (iso) => {
-                  const t = new Date(iso);
-                  return `${t.getDate().toString().padStart(2, "0")} ${bulanList[t.getMonth()]} ${t.getFullYear()}`;
+
+                // filter data berdasarkan periode cetak yang dipilih
+                const now = new Date();
+                const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+                const getPrintData = () => {
+                  return allLaporan.filter(l => {
+                    const itemDate = l.tanggalISO ? new Date(l.tanggalISO) : null;
+                    if (!itemDate) return false;
+                    if (printPeriod === "harian") return itemDate.toDateString() === today.toDateString();
+                    if (printPeriod === "mingguan") { const w = new Date(today); w.setDate(w.getDate()-7); return itemDate >= w && itemDate <= today; }
+                    if (printPeriod === "bulanan") return itemDate.getMonth() === today.getMonth() && itemDate.getFullYear() === today.getFullYear();
+                    if (printPeriod === "tahunan") return itemDate.getFullYear() === today.getFullYear();
+                    return true;
+                  });
                 };
 
-                const printData = filteredLaporan;
+                const printData = getPrintData();
                 const totalTransaksi = printData.length;
-                const totalKg = printData.reduce((sum, l) => {
+                const totalBerat = printData.reduce((sum, l) => {
                   const num = parseFloat(l.berat.toString().replace(/kg|pcs/g, "").trim());
                   return sum + (isNaN(num) ? 0 : num);
                 }, 0);
+                const totalPendapatanAll = printData.reduce((sum, l) => sum + (parseInt(l.total) || 0), 0);
+                const totalSelesai = printData.filter(l => l.status === "Selesai").length;
                 const totalLunasPeriod = printData.filter(l => l.payment_status === "Lunas" || l.status === "Selesai").reduce((sum, l) => sum + (parseInt(l.total) || 0), 0);
+
+                // hitung periode waktu
+                const getPeriodeLabel = () => {
+                  if (printPeriod === "harian") return `${today.getDate()} ${bulanList[today.getMonth()]} ${today.getFullYear()}`;
+                  if (printPeriod === "mingguan") { const w = new Date(today); w.setDate(w.getDate()-7); return `${w.getDate()} ${bulanList[w.getMonth()]} - ${today.getDate()} ${bulanList[today.getMonth()]} ${today.getFullYear()}`; }
+                  if (printPeriod === "bulanan") return `${bulanList[today.getMonth()]} ${today.getFullYear()}`;
+                  if (printPeriod === "tahunan") return `Tahun ${today.getFullYear()}`;
+                  return "Semua Data";
+                };
 
                 const label = { harian: "Harian", mingguan: "Mingguan", bulanan: "Bulanan", tahunan: "Tahunan" }[printPeriod] || "Semua";
                 setShowPrintModal(false);
@@ -494,7 +516,8 @@ export default function Laporan() {
   .header h1 { font-size: 22px; color: #1e40af; margin-bottom: 4px; }
   .header p { color: #64748b; font-size: 12px; }
   .header .brand { font-size: 36px; }
-  .periode { text-align: center; color: #3b82f6; font-weight: 700; font-size: 14px; margin-bottom: 20px; }
+  .periode { text-align: center; color: #3b82f6; font-weight: 700; font-size: 14px; margin-bottom: 8px; }
+  .periode-sub { text-align: center; color: #64748b; font-size: 12px; margin-bottom: 20px; }
   .info-row { display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 12px; color: #64748b; }
   .summary { background: #f0f7ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 16px; margin-bottom: 24px; display: flex; justify-content: space-around; text-align: center; }
   .summary-item .val { font-size: 18px; font-weight: 800; color: #1e40af; }
@@ -521,15 +544,16 @@ export default function Laporan() {
     <p>Bersih, Cepat, Terpercaya — Jl. Pinang Raya, Margonda Depok</p>
   </div>
   <div class="periode">📊 LAPORAN TRANSAKSI — PERIODE ${label.toUpperCase()}</div>
+  <div class="periode-sub">${getPeriodeLabel()}</div>
   <div class="info-row">
     <span>Tanggal Cetak: ${currentDate}</span>
     <span>Jenis Laporan: ${label}</span>
   </div>
   <div class="summary">
     <div class="summary-item"><div class="val">${totalTransaksi}</div><div class="lbl">Total Transaksi</div></div>
-    <div class="summary-item"><div class="val">${totalKg.toFixed(1)} kg</div><div class="lbl">Total Berat</div></div>
-    <div class="summary-item"><div class="val">Rp ${totalLunasPeriod.toLocaleString('id-ID')}</div><div class="lbl">Total Pendapatan</div></div>
-    <div class="summary-item"><div class="val">${printData.filter(l => l.status === "Selesai").length}</div><div class="lbl">Selesai</div></div>
+    <div class="summary-item"><div class="val">${totalBerat.toFixed(1)} kg</div><div class="lbl">Total Berat</div></div>
+    <div class="summary-item"><div class="val">Rp ${totalPendapatanAll.toLocaleString('id-ID')}</div><div class="lbl">Total Pendapatan</div></div>
+    <div class="summary-item"><div class="val">${totalSelesai}</div><div class="lbl">Selesai</div></div>
   </div>
   <table>
     <thead><tr><th>No</th><th>Tanggal</th><th>Pelanggan</th><th>Layanan</th><th>Berat</th><th>Harga</th><th>Total</th><th>Status</th></tr></thead>
