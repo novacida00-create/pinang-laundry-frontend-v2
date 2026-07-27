@@ -186,13 +186,6 @@
   /* Charts */
   .recharts-responsive-container { height: 250px !important; }
 
-  /* Pagination */
-  div[style*="display: flex"][style*="justify-content: center"] {
-    flex-direction: column !important;
-    gap: 8px !important;
-    align-items: center !important;
-  }
-
   /* MainLayout */
   .main-layout { position: relative !important; }
   .main-sidebar-wrap { width: 0 !important; overflow: hidden !important; }
