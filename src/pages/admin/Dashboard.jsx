@@ -33,17 +33,50 @@ export default function Dashboard() {
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [showNotifModal, setShowNotifModal] = useState(false);
 
-  const [notifications, setNotifications] = useState([
-    { id: 1, title: "Pesanan Baru", message: "Novacida Haqs memesan Cuci Kiloan", time: "2 menit lalu", read: false },
-    { id: 2, title: "Pesanan Selesai", message: "Pesanan Ahmad Rizki sudah selesai", time: "30 menit lalu", read: false },
-    { id: 3, title: "Pembayaran", message: "Pembayaran dari Siti Aminah berhasil", time: "1 jam lalu", read: true },
-  ]);
-
+  const [notifications, setNotifications] = useState([]);
   const unreadCount = notifications.filter(n => !n.read).length;
 
   const markAsRead = (id) => {
     setNotifications(notifications.map(n => n.id === id ? { ...n, read: true } : n));
   };
+
+  // ambil notifikasi dari data orders terbaru
+  const loadNotifikasi = async () => {
+    try {
+      const res = await fetch("/api/orders");
+      const data = await res.json();
+      const orders = Array.isArray(data) ? data : (data.data || []);
+
+      // ambil 5 order terbaru buat notifikasi
+      const recent = orders.slice(-5).reverse();
+      const msgs = recent.map((o, i) => {
+        let title = "Pesanan Baru";
+        let icon = "shoppingBag";
+        if (o.status === "Selesai") { title = "Pesanan Selesai"; icon = "check"; }
+        else if (o.status === "Dalam Proses") { title = "Sedang Diproses"; icon = "loader"; }
+        else if (o.status === "Siap Diambil") { title = "Siap Diambil"; icon = "package"; }
+        return {
+          id: i + 1,
+          title,
+          message: `${o.customer_name || "Pelanggan"} - ${o.service || o.layanan || "Laundry"} (Rp ${(parseInt(o.total) || 0).toLocaleString("id-ID")})`,
+          time: o.date || o.created_at || o.tanggal || "-",
+          read: false,
+          icon
+        };
+      });
+      setNotifications(msgs.length > 0 ? msgs : [
+        { id: 1, title: "Sistem Aktif", message: "Pinang Laundry berjalan normal", time: "Sekarang", read: false, icon: "check" }
+      ]);
+    } catch {
+      setNotifications([
+        { id: 1, title: "Sistem Aktif", message: "Pinang Laundry berjalan normal", time: "Sekarang", read: false, icon: "check" }
+      ]);
+    }
+  };
+
+  useEffect(() => {
+    loadNotifikasi();
+  }, [refreshKey]);
   
   const [stats, setStats] = useState({
     pendapatan: "Rp 0",
@@ -383,7 +416,7 @@ export default function Dashboard() {
             <div style={styles.notifList}>
               {notifications.map(n => (
                 <div key={n.id} style={n.read ? styles.notifItemRead : styles.notifItem} onClick={() => markAsRead(n.id)}>
-                  <div style={styles.notifIcon}>{n.read ? <Icon name="check" /> : <Icon name="bell" />}</div>
+                  <div style={styles.notifIcon}><Icon name={n.icon || "bell"} /></div>
                   <div style={styles.notifContent}>
                     <div style={styles.notifTitle}>{n.title}</div>
                     <div style={styles.notifMessage}>{n.message}</div>
