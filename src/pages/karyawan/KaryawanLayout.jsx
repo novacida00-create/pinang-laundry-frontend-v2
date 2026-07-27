@@ -84,11 +84,10 @@ export default function KaryawanLayout() {
 const styles = {
   sidebar: {
     width: 260,
-    height: "100vh",
-    minHeight: "100vh",
-    position: "fixed",
     top: 0,
+    bottom: 0,
     left: 0,
+    position: "fixed",
     background: "#1e40af",
     color: "white",
     padding: 20,
