@@ -56,8 +56,13 @@ export default function KaryawanLayout() {
               })}
             </nav>
           </div>
-          <div style={{ marginTop: 20 }}>
-            <div style={{ fontSize: 14, color: "#fff", marginBottom: 10 }}>{karyawan.name || "Karyawan"}</div>
+          <div style={{ borderTop: "1px solid rgba(255,255,255,0.2)", paddingTop: 16, marginTop: 20 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
+              <div style={{ width: 36, height: 36, background: "rgba(255,255,255,0.2)", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center", flexShrink: 0 }}>
+                <Icon name="user" size={18} />
+              </div>
+              <div style={{ fontSize: 14, fontWeight: 600, color: "#fff" }}>{karyawan.name || "Karyawan"}</div>
+            </div>
             <button onClick={handleLogout} style={{ width: "100%", padding: "10px", background: "#ef4444", border: "none", borderRadius: 8, color: "#fff", fontWeight: 600, cursor: "pointer" }}>Logout</button>
           </div>
         </aside>
