@@ -68,6 +68,32 @@
     width: 100% !important;
   }
 
+  /* Cards: overflow hidden */
+  .admin-main section, .admin-main div[style*="background: #fff"] {
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Card header: stack on mobile */
+  .admin-main div[style*="justify-content: space-between"][style*="align-items: center"] {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 12px !important;
+  }
+
+  /* Action buttons: stack */
+  .admin-main div[style*="display: flex"][style*="gap: 12"] {
+    flex-wrap: wrap !important;
+  }
+
+  /* btnAdd & search: full width */
+  .admin-main button[style*="background: #3b82f6"],
+  .admin-main input[placeholder*="Cari"] {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    text-align: center !important;
+  }
+
   /* Stats row: stack */
   .admin-main > div[style*="display: flex"] > div[style*="flex"],
   .customer-main > div[style*="display: flex"] > div[style*="flex"],
