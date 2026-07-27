@@ -115,19 +115,34 @@ export default function Pelanggan() {
     if (newPelanggan.name && newPelanggan.phone) {
       try {
         const email = newPelanggan.name.toLowerCase().replace(/\s+/g, '') + '@gmail.com';
+        const payload = {
+          name: newPelanggan.name,
+          email: email,
+          phone: newPelanggan.phone,
+          address: newPelanggan.address,
+          order_count: editingPelanggan ? (editingPelanggan.order_count ?? editingPelanggan.order ?? 0) : 0,
+          status: editingPelanggan ? (editingPelanggan.status || "Aktif") : "Aktif"
+        };
 
         if (editingPelanggan) {
-          const res = await fetch(`${API}/pelanggan/${editingPelanggan.id}`, {
+          let targetId = editingPelanggan.id;
+
+          // kalau pelanggan dari orders belum punya id, buat dulu di tabel pelanggan
+          if (!targetId) {
+            const createRes = await fetch(`${API}/pelanggan`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload)
+            });
+            const createData = await createRes.json();
+            if (createData.error) throw new Error(createData.error);
+            targetId = createData.id;
+          }
+
+          const res = await fetch(`${API}/pelanggan/${targetId}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              name: newPelanggan.name,
-              email: email,
-              phone: newPelanggan.phone,
-              address: newPelanggan.address,
-              order_count: editingPelanggan.order_count ?? editingPelanggan.order ?? 0,
-              status: editingPelanggan.status
-            })
+            body: JSON.stringify(payload)
           });
           const data = await res.json();
           if (data.error) throw new Error(data.error);
@@ -137,14 +152,7 @@ export default function Pelanggan() {
           const res = await fetch(`${API}/pelanggan`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              name: newPelanggan.name,
-              email: email,
-              phone: newPelanggan.phone,
-              address: newPelanggan.address,
-              order_count: 0,
-              status: "Aktif"
-            })
+            body: JSON.stringify(payload)
           });
           const data = await res.json();
           if (data.error) throw new Error(data.error);
@@ -179,7 +187,12 @@ export default function Pelanggan() {
     setShowDetailModal(true);
   };
 
-  const handleDeletePelanggan = async (id) => {
+  const handleDeletePelanggan = async (pelanggan) => {
+    const id = pelanggan.id;
+    if (!id) {
+      alert("Pelanggan ini belum terdaftar di database, tidak bisa dihapus.");
+      return;
+    }
     if (confirm("Yakin ingin menghapus pelanggan ini?")) {
       try {
         const res = await fetch(`${API}/pelanggan/${id}`, { method: "DELETE" });
@@ -291,7 +304,7 @@ export default function Pelanggan() {
             </thead>
             <tbody>
               {paginatedPelanggan.map((p, idx) => (
-                <PelangganRow key={idx} no={(currentPage - 1) * itemsPerPage + idx + 1} name={p.name} email={p.email} phone={p.phone} address={p.address} order={p.order} totalSpent={p.total_spent} status={p.status} onEdit={() => handleEditPelanggan(p)} onDelete={() => handleDeletePelanggan(p.id)} onView={() => handleViewDetail(p)} />
+                <PelangganRow key={idx} no={(currentPage - 1) * itemsPerPage + idx + 1} name={p.name} email={p.email} phone={p.phone} address={p.address} order={p.order} totalSpent={p.total_spent} status={p.status} onEdit={() => handleEditPelanggan(p)} onDelete={() => handleDeletePelanggan(p)} onView={() => handleViewDetail(p)} />
               ))}
             </tbody>
           </table>
