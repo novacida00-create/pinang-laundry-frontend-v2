@@ -32,27 +32,33 @@ export default function KaryawanLayout() {
     navigate("/karyawan/login");
   };
 
+  const sidebarStyle = {
+    width: 260,
+    background: "linear-gradient(180deg, #0f2b5e, #1e40af)",
+    padding: "30px 24px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    flexShrink: 0,
+  };
+
+  const sidebarMobileStyle = {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    bottom: 0,
+    zIndex: 50,
+    transition: "transform 0.3s ease",
+    transform: sidebarOpen ? "translateX(0)" : "translateX(-100%)",
+  };
+
   return (
-    <div style={{ display: "flex", minHeight: "100dvh", fontFamily: "'Inter', sans-serif", background: "#f1f5f9" }}>
-      {/* overlay */}
-      {sidebarOpen && <div onClick={() => setSidebarOpen(false)} style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.3)", zIndex: 40 }} />}
+    <div className="karyawan-layout">
+      {/* overlay - mobile only */}
+      {sidebarOpen && <div className="karyawan-overlay" onClick={() => setSidebarOpen(false)} />}
 
       {/* SIDEBAR */}
-      <aside style={{
-        width: 260,
-        background: "linear-gradient(180deg, #0f2b5e, #1e40af)",
-        padding: "30px 24px",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-        position: "fixed",
-        top: 0,
-        left: 0,
-        bottom: 0,
-        zIndex: 50,
-        transition: "transform 0.3s ease",
-        transform: sidebarOpen ? "translateX(0)" : "translateX(-100%)",
-      }}>
+      <aside className="karyawan-sidebar" style={sidebarStyle}>
         <div style={{ display: "flex", flexDirection: "column", gap: 40 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
             <div style={{ width: 40, height: 40, background: "rgba(255,255,255,0.2)", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center", fontSize: 20 }}>🧺</div>
@@ -82,11 +88,11 @@ export default function KaryawanLayout() {
       </aside>
 
       {/* MAIN */}
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", marginLeft: 0, minWidth: 0 }}>
-        <header style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 24px", background: "#fff", borderBottom: "1px solid #e2e8f0", position: "sticky", top: 0, zIndex: 30 }}>
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", minWidth: 0 }}>
+        <header className="karyawan-header" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 24px", background: "#fff", borderBottom: "1px solid #e2e8f0", position: "sticky", top: 0, zIndex: 30 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            {/* HAMBURGER BUTTON */}
-            <div onClick={() => setSidebarOpen(!sidebarOpen)} style={{ width: 38, height: 38, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: 5, background: "#f1f5f9", borderRadius: 10, cursor: "pointer", flexShrink: 0 }}>
+            {/* hamburger - mobile only via CSS */}
+            <div className="karyawan-hamburger" onClick={() => setSidebarOpen(!sidebarOpen)} style={{ display: "none", width: 38, height: 38, flexDirection: "column", justifyContent: "center", alignItems: "center", gap: 5, background: "#f1f5f9", borderRadius: 10, cursor: "pointer", flexShrink: 0 }}>
               <span style={{ display: "block", width: 20, height: 2, background: "#475569", borderRadius: 2 }}></span>
               <span style={{ display: "block", width: 20, height: 2, background: "#475569", borderRadius: 2 }}></span>
               <span style={{ display: "block", width: 20, height: 2, background: "#475569", borderRadius: 2 }}></span>
