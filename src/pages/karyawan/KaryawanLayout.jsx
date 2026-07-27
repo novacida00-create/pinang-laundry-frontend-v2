@@ -65,7 +65,11 @@ export default function KaryawanLayout() {
 
       {/* MAIN CONTENT */}
       <div className="main-content" style={{ flex: 1, padding: 20, background: "#f0f7ff", position: "relative" }}>
-        <label htmlFor="mt" className="mt-l"></label>
+        <label htmlFor="mt" className="mt-l">
+          <span style={{ display: "block", width: 20, height: 2, background: "#fff", borderRadius: 2 }}></span>
+          <span style={{ display: "block", width: 20, height: 2, background: "#fff", borderRadius: 2 }}></span>
+          <span style={{ display: "block", width: 20, height: 2, background: "#fff", borderRadius: 2 }}></span>
+        </label>
         <Outlet />
       </div>
     </div>
