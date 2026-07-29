@@ -166,7 +166,7 @@ export default function Layanan() {
             <div style={styles.warningItem}>
               <span style={styles.warningIcon}>🚫</span>
               <div>
-                <b>Sprei / Bed Cover Ukuran Jumbo (>2m)</b>
+                <b>Sprei / Bed Cover Ukuran Jumbo (&gt;2m)</b>
                 <p style={styles.warningItemDesc}>Ukuran terlalu besar untuk kapasitas mesin kami.</p>
               </div>
             </div>
