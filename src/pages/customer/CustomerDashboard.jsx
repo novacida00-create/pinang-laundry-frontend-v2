@@ -579,6 +579,38 @@ Terima kasih telah memilih Pinang Laundry!`
               </div>
             </section>
 
+            <section style={styles.card}>
+              <h3 style={styles.cardTitle}>📋 Ketentuan Laundry</h3>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 16 }}>
+                <div style={{ background: "#f0f7ff", borderRadius: 14, padding: 16, border: "1px solid #bfdbfe" }}>
+                  <div style={{ fontWeight: 700, color: "#1e40af", marginBottom: 8, fontSize: 14 }}>⚖️ Batasan Berat</div>
+                  <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, color: "#475569", lineHeight: 1.8 }}>
+                    <li>Pesanan maksimal <b>20 kg</b> per transaksi</li>
+                    <li>Untuk pesanan lebih dari 20kg, silakan hubungi kami</li>
+                  </ul>
+                </div>
+                <div style={{ background: "#fef2f2", borderRadius: 14, padding: 16, border: "1px solid #fecaca" }}>
+                  <div style={{ fontWeight: 700, color: "#dc2626", marginBottom: 8, fontSize: 14 }}>🚫 Barang Tidak Diterima</div>
+                  <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, color: "#475569", lineHeight: 1.8 }}>
+                    <li>Pakaian merk branded (Gucci, LV, Dior)</li>
+                    <li>Kain kafan / kain mortji</li>
+                    <li>Bahan kulit / suede</li>
+                    <li>Baju berpayet / manik-manik</li>
+                    <li>Noda cat / lem permanen</li>
+                    <li>Sprei / bed cover jumbo (&gt;2m)</li>
+                  </ul>
+                </div>
+                <div style={{ background: "#f0fdf4", borderRadius: 14, padding: 16, border: "1px solid #bbf7d0" }}>
+                  <div style={{ fontWeight: 700, color: "#16a34a", marginBottom: 8, fontSize: 14 }}>✅ Info Penting</div>
+                  <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, color: "#475569", lineHeight: 1.8 }}>
+                    <li>Pembayaran bisa cash atau via Midtrans</li>
+                    <li>Pesanan yang sudah selesai harap diambil maksimal 7 hari</li>
+                    <li>Kerusakan akibat bahan yang tidak sesuai bukan tanggung jawab kami</li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+
             {pendingOrders.length > 0 && (
               <section style={styles.card}>
                 <h3 style={styles.cardTitle}>Pesanan Menunggu Diproses</h3>
