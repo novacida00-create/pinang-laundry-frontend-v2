@@ -122,6 +122,59 @@ export default function Layanan() {
         </div>
       </section>
 
+      {/* PERINGATAN */}
+      <section style={styles.warningSection}>
+        <div style={styles.warningBox}>
+          <h3 style={styles.warningTitle}>⚠️ Perhatian - Barang Yang Tidak Kami Terima</h3>
+          <p style={styles.warningDesc}>Untuk menghindari kerusakan dan komplain, Pinang Laundry <b>tidak menerima</b> jenis pakaian/barang berikut:</p>
+          <div style={styles.warningGrid}>
+            <div style={styles.warningItem}>
+              <span style={styles.warningIcon}>🚫</span>
+              <div>
+                <b>Pakaian Merk Branded</b>
+                <p style={styles.warningItemDesc}>Gucci, Louis Vuitton, Dior, dll. Risiko rusak/tidak sesuai standar perawatan khusus.</p>
+              </div>
+            </div>
+            <div style={styles.warningItem}>
+              <span style={styles.warningIcon}>🚫</span>
+              <div>
+                <b>Kain Kafan / Kain Mortji</b>
+                <p style={styles.warningItemDesc}>Barang sakral yang membutuhkan penanganan khusus di luar kapasitas kami.</p>
+              </div>
+            </div>
+            <div style={styles.warningItem}>
+              <span style={styles.warningIcon}>🚫</span>
+              <div>
+                <b>Pakaian Berbahan Kulit / Suede</b>
+                <p style={styles.warningItemDesc}>Membutuhkan dry clean khusus yang tidak tersedia di layanan kami.</p>
+              </div>
+            </div>
+            <div style={styles.warningItem}>
+              <span style={styles.warningIcon}>🚫</span>
+              <div>
+                <b>Baju dengan Payet / Manik-manik</b>
+                <p style={styles.warningItemDesc}>Aksesoris dapat lepas dan merusak mesin cuci serta pakaian lain.</p>
+              </div>
+            </div>
+            <div style={styles.warningItem}>
+              <span style={styles.warningIcon}>🚫</span>
+              <div>
+                <b>Pakaian Penuh Noda Cat / Lem</b>
+                <p style={styles.warningItemDesc}>Noda permanen yang tidak dapat dihilangkan dengan proses cuci biasa.</p>
+              </div>
+            </div>
+            <div style={styles.warningItem}>
+              <span style={styles.warningIcon}>🚫</span>
+              <div>
+                <b>Sprei / Bed Cover Ukuran Jumbo (>2m)</b>
+                <p style={styles.warningItemDesc}>Ukuran terlalu besar untuk kapasitas mesin kami.</p>
+              </div>
+            </div>
+          </div>
+          <p style={styles.warningNote}>Jika Anda ragu, silakan hubungi kami terlebih dahulu sebelum melakukan pemesanan.</p>
+        </div>
+      </section>
+
       {/* CTA */}
       <section style={styles.ctaSection}>
         <div style={styles.ctaContent}>
@@ -205,6 +258,16 @@ const styles = {
   servicePrice: { fontSize: 22, fontWeight: 700, color: "#3b82f6" },
   serviceUnit: { fontSize: 14, color: "#94a3b8" },
   serviceOrderBtn: { width: "100%", padding: "14px", borderRadius: 12, border: "none", background: "#3b82f6", color: "#fff", fontSize: 14, fontWeight: 700, cursor: "pointer" },
+
+  warningSection: { padding: "0 24px 60px", maxWidth: 1200, margin: "0 auto" },
+  warningBox: { background: "#fef2f2", border: "2px solid #fecaca", borderRadius: 20, padding: 32 },
+  warningTitle: { fontSize: 20, fontWeight: 700, color: "#dc2626", marginBottom: 8 },
+  warningDesc: { fontSize: 15, color: "#64748b", marginBottom: 20, lineHeight: 1.65 },
+  warningGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 16, marginBottom: 20 },
+  warningItem: { display: "flex", gap: 12, alignItems: "flex-start", padding: 16, background: "#fff", borderRadius: 14, border: "1px solid #fecaca" },
+  warningIcon: { fontSize: 20, flexShrink: 0 },
+  warningItemDesc: { fontSize: 13, color: "#94a3b8", margin: "4px 0 0", lineHeight: 1.5 },
+  warningNote: { fontSize: 14, color: "#dc2626", fontStyle: "italic", textAlign: "center", margin: 0 },
 
   ctaSection: { padding: "80px 24px", background: "linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)" },
   ctaContent: { textAlign: "center" },

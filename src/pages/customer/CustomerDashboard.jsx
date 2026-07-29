@@ -883,6 +883,10 @@ Terima kasih telah memilih Pinang Laundry!`
             <div style={styles.orderModalBody}>
               <div style={styles.infoHarga}>Harga: Rp {parseInt(selectedService?.harga || 0).toLocaleString('id-ID')}/{getUnit(selectedService?.name)}</div>
 
+              <div style={{ background: "#fef2f2", border: "1px solid #fecaca", borderRadius: 10, padding: "10px 14px", fontSize: 12, color: "#dc2626", lineHeight: 1.6 }}>
+                <b>⚠️ Kami tidak menerima:</b> Pakaian branded, kain kafan, bahan kulit/suede, baju berpayet/manik-manik, noda cat/lem permanen, dan sprei/bed cover jumbo.
+              </div>
+
               <div style={styles.stepper}>
                 {orderSteps.map((label, i) => {
                   const stepNum = i + 1;
