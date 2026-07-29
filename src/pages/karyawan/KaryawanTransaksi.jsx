@@ -38,6 +38,7 @@ export default function KaryawanTransaksi() {
 
   const handleSubmit = async () => {
     if (!form.customer_name || !form.service_name) return alert("Lengkapi data!");
+    if (parseFloat(form.weight) > 20) return alert("Jumlah maksimal adalah 20kg!");
     const now = new Date();
     const orderCount = orders.length + 1;
     const orderCode = "ORD-" + String(orderCount).padStart(4, "0");
@@ -120,7 +121,7 @@ export default function KaryawanTransaksi() {
             </div>
             <div>
               <label style={styles.label}>Berat (kg)</label>
-              <input style={styles.input} type="number" placeholder="0" value={form.weight} onChange={(e) => handleWeightChange(e.target.value)} />
+              <input style={styles.input} type="number" min="0" max="20" step="0.1" placeholder="0" value={form.weight} onChange={(e) => handleWeightChange(e.target.value)} />
             </div>
             <div>
               <label style={styles.label}>Total</label>

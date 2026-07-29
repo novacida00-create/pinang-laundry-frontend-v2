@@ -198,6 +198,10 @@ export default function CustomerDashboard() {
       alert("Mohon masukkan jumlah yang valid!");
       return;
     }
+    if (parseFloat(orderForm.weight) > 20) {
+      alert("Jumlah maksimal adalah 20kg!");
+      return;
+    }
     if (deliveryMode === "kurir" && !distance) {
       alert("Mohon pilih jarak rumah ke toko!");
       return;
@@ -895,7 +899,7 @@ Terima kasih telah memilih Pinang Laundry!`
               <div style={styles.fieldBox}>
                 <div style={styles.fieldRow}>
                   <span style={styles.fieldLabel}>Jumlah ({getUnit(selectedService?.name)})</span>
-                  <input type="number" min="0" step="0.1" placeholder="0" value={orderForm.weight} onChange={e => setOrderForm({ ...orderForm, weight: e.target.value })} style={styles.orderInput} />
+                  <input type="number" min="0" max="20" step="0.1" placeholder="0" value={orderForm.weight} onChange={e => setOrderForm({ ...orderForm, weight: e.target.value })} style={styles.orderInput} />
                 </div>
               </div>
 
