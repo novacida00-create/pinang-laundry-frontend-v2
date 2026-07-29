@@ -194,6 +194,15 @@ export default function CustomerDashboard() {
       alert("Mohon isi alamat penjemputan!");
       return;
     }
+    if (!orderForm.email) {
+      alert("Mohon isi email!");
+      return;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(orderForm.email)) {
+      alert("Format email tidak valid! Contoh: nama@gmail.com");
+      return;
+    }
     if (!orderForm.weight || parseFloat(orderForm.weight) <= 0) {
       alert("Mohon masukkan jumlah yang valid!");
       return;
