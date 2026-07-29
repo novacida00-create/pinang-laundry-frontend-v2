@@ -44,6 +44,11 @@ export default function RegisterPage() {
       setError("Mohon isi semua data!");
       return;
     }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(regEmail)) {
+      setError("Format email tidak valid! Contoh: nama@gmail.com");
+      return;
+    }
     try {
       const res = await fetch("/api/customers/register", {
         method: "POST",
