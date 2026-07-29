@@ -16,7 +16,7 @@ const faqData = [
   
   // Waktu
   { keywords: ["waktu", "lama proses", "selesai kapan", "berapa lama", "durasi", "estimasi"], 
-    answer: "Waktu Proses:\n\n• Cuci Kiloan: 24 jam\n• Express: 4 jam\n• Cuci Karpet: 48 jam\n• Cuci Sepatu: 24 jam\n• Cuci Boneka: 24 jam\n• Cuci Jas: 48 jam" },
+    answer: "Waktu Proses:\n\n• Cuci Kiloan: 24 jam\n• Express: 4 jam\n• Cuci Karpet: 2 hari\n• Cuci Sepatu: 24 jam\n• Cuci Boneka: 24 jam\n• Cuci Jas: 48 jam" },
   
   // Cara Pesan
   { keywords: ["cara", "cara pesan", "cara order", "order", "booking", "pesanan", "Bagaimana"], 

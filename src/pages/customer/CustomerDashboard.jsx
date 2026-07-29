@@ -125,7 +125,7 @@ export default function CustomerDashboard() {
           setServices([
             { no: 1, name: "Cuci Kiloan", jenis: "Kiloan", harga: "6000", waktu: "24 jam" },
             { no: 2, name: "Express", jenis: "Express", harga: "15000", waktu: "4 jam" },
-            { no: 4, name: "Cuci Karpet", jenis: "Spesial", harga: "50000", waktu: "48 jam" },
+            { no: 4, name: "Cuci Karpet", jenis: "Spesial", harga: "50000", waktu: "2 hari" },
             { no: 5, name: "Cuci Sepatu", jenis: "Spesial", harga: "30000", waktu: "24 jam" },
             { no: 6, name: "Cuci Boneka", jenis: "Satuan", harga: "10000", waktu: "24 jam" },
             { no: 7, name: "Cuci Setrika", jenis: "Kiloan", harga: "12000", waktu: "24 jam" },
@@ -136,7 +136,7 @@ export default function CustomerDashboard() {
         setServices([
           { no: 1, name: "Cuci Kiloan", jenis: "Kiloan", harga: "6000", waktu: "24 jam" },
           { no: 2, name: "Express", jenis: "Express", harga: "15000", waktu: "4 jam" },
-          { no: 4, name: "Cuci Karpet", jenis: "Spesial", harga: "50000", waktu: "48 jam" },
+          { no: 4, name: "Cuci Karpet", jenis: "Spesial", harga: "50000", waktu: "2 hari" },
           { no: 5, name: "Cuci Sepatu", jenis: "Spesial", harga: "30000", waktu: "24 jam" },
           { no: 6, name: "Cuci Boneka", jenis: "Satuan", harga: "10000", waktu: "24 jam" },
           { no: 7, name: "Cuci Setrika", jenis: "Kiloan", harga: "12000", waktu: "24 jam" },

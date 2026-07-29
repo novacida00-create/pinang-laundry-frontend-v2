@@ -7,7 +7,7 @@ const serviceIcons = { "Cuci Kiloan": "👕", "Express": "⚡", "Cuci Karpet": "
 const services = [
   { icon: "tshirt", name: "Cuci Kiloan", price: "Rp 6.000", unit: "/kg", waktu: "24 jam", desc: "Cuci berdasarkan berat, cocok untuk baju harian. Paket lengkap meliputi cuci, rendam, dan bilas hingga bersih." },
   { icon: "bolt", name: "Express", price: "Rp 15.000", unit: "/kg", waktu: "4 jam", desc: "Layanan kilat! Laundry selesai dalam 4 jam saja. Cocok untuk kebutuhan mendesak." },
-  { icon: "yarn", name: "Cuci Karpet", price: "Rp 50.000", unit: "/pcs", waktu: "48 jam", desc: "Cuci karpet besar dan tebal. Proses deep cleaning untuk karpet kesayangan Anda." },
+  { icon: "yarn", name: "Cuci Karpet", price: "Rp 50.000", unit: "/pcs", waktu: "2 hari", desc: "Cuci karpet besar dan tebal. Proses deep cleaning untuk karpet kesayangan Anda." },
   { icon: "jacket", name: "Cuci Jaket", price: "Rp 12.000", unit: "/pcs", waktu: "24 jam", desc: "Cuci jaket dan outerwear. Termasuk обработка khusus untuk материалу." },
   { icon: "shirt", name: "Cuci Jas", price: "Rp 35.000", unit: "/pcs", waktu: "48 jam", desc: "Cuci jas profesional dengan dry clean khusus. Hasil rapi dan wangi." },
   { icon: "flame", name: "Setrika Saja", price: "Rp 5.000", unit: "/kg", waktu: "6 jam", desc: "Hanya setrika, tanpa cucian. Pakaian Anda akan rapi seperti disetrika profesional." },

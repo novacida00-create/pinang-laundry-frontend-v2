@@ -14,7 +14,7 @@ const serviceIcons = { "Cuci Kiloan": "👕", "Express": "⚡", "Cuci Boneka": "
 const allServices = [
   { icon: "tshirt", name: "Cuci Kiloan", price: "Rp 6.000/kg", waktu: "24 jam", desc: "Cuci berdasarkan berat, cocok untuk baju harian" },
   { icon: "bolt", name: "Express", price: "Rp 15.000/kg", waktu: "4 jam", desc: "Laundry selesai dalam 4 jam" },
-  { icon: "yarn", name: "Cuci Karpet", price: "Rp 50.000/pcs", waktu: "48 jam", desc: "Cuci karpet besar dan tebal" },
+  { icon: "yarn", name: "Cuci Karpet", price: "Rp 50.000/pcs", waktu: "2 hari", desc: "Cuci karpet besar dan tebal" },
   { icon: "package", name: "Cuci Boneka", price: "Rp 10.000/pcs", waktu: "24 jam", desc: "Cuci boneka kesayangan bersih dan wangi" },
   { icon: "jacket", name: "Cuci Jaket", price: "Rp 12.000/kg", waktu: "24 jam", desc: "Cuci jaket dan outerwear" },
   { icon: "shirt", name: "Cuci Jas", price: "Rp 35.000/pcs", waktu: "48 jam", desc: "Cuci jas profesional" },
