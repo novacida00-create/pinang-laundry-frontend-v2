@@ -54,7 +54,17 @@ export default function CustomerDashboard() {
   const [showOrderModal, setShowOrderModal] = useState(false);
   const [selectedService, setSelectedService] = useState(null);
   const [orderForm, setOrderForm] = useState({ weight: "", phone: "", address: "", email: "" });
+  const [carpetSize, setCarpetSize] = useState("");
+  const carpetSizes = [
+    { label: "60x90 cm", price: 40000 },
+    { label: "90x150 cm", price: 50000 },
+    { label: "120x180 cm", price: 70000 },
+    { label: "150x200 cm", price: 90000 },
+    { label: "180x240 cm", price: 120000 },
+    { label: "200x300 cm", price: 150000 },
+  ];
   const getUnit = (name) => name === "Cuci Karpet" || name === "Cuci Baton" ? "pcs" : "kg";
+  const isKarpet = selectedService?.name === "Cuci Karpet";
   const [deliveryMode, setDeliveryMode] = useState("kurir");
   const [distance, setDistance] = useState("2-4");
   const ongkirPrices = { "0-1": 0, "1-2": 5000, "2-4": 10000, "4-6": 15000, "6-10": 25000 };
@@ -180,6 +190,7 @@ export default function CustomerDashboard() {
   const handlePesan = (service) => {
     setSelectedService(service);
     setOrderForm({ weight: "", phone: "", address: "", email: "" });
+    setCarpetSize("");
     setDeliveryMode("kurir");
     setDistance("2-4");
     setShowOrderModal(true);
@@ -203,22 +214,26 @@ export default function CustomerDashboard() {
       alert("Format email tidak valid! Contoh: nama@gmail.com");
       return;
     }
-    if (!orderForm.weight || parseFloat(orderForm.weight) <= 0) {
-      alert("Mohon masukkan jumlah yang valid!");
-      return;
-    }
-    if (parseFloat(orderForm.weight) > 20) {
-      alert("Jumlah maksimal adalah 20kg!");
-      return;
+    if (isKarpet) {
+      if (!carpetSize) {
+        alert("Mohon pilih ukuran karpet!");
+        return;
+      }
+    } else {
+      if (!orderForm.weight || parseFloat(orderForm.weight) <= 0) {
+        alert("Mohon masukkan jumlah yang valid!");
+        return;
+      }
+      if (parseFloat(orderForm.weight) > 20) {
+        alert("Jumlah maksimal adalah 20kg!");
+        return;
+      }
     }
     if (deliveryMode === "kurir" && !distance) {
       alert("Mohon pilih jarak rumah ke toko!");
       return;
     }
 
-    const biayaCuci = parseFloat(orderForm.weight) * parseInt(selectedService.harga);
-    const ongkir = deliveryMode === "kurir" ? getOngkir(distance) : 0;
-    const total = biayaCuci + ongkir;
     const customerEmail = orderForm.email || (customerName.toLowerCase().replace(/\s+/g, '') + '@gmail.com');
 
     try {
@@ -229,14 +244,14 @@ export default function CustomerDashboard() {
           order_code: "INV-" + Date.now(),
           customer_name: customerName,
           email: customerEmail,
-          service_name: selectedService.name,
-          weight: parseFloat(orderForm.weight),
-          price: parseInt(selectedService.harga),
+          service_name: selectedService.name + (isKarpet ? ` (${carpetSize})` : ""),
+          weight: isKarpet ? 1 : parseFloat(orderForm.weight),
+          price: hargaItem,
           biaya_cuci: biayaCuci,
-          ongkir: ongkir,
+          ongkir: ongkirVal,
           delivery_mode: deliveryMode,
           jarak: deliveryMode === "kurir" ? distance : null,
-          total: total,
+          total: totalBayar,
           status: "Menunggu",
           phone: orderForm.phone,
           address: orderForm.address
@@ -262,11 +277,11 @@ export default function CustomerDashboard() {
         body: JSON.stringify({
           tanggal: formatTanggal(),
           pelanggan: customerName,
-          layanan: selectedService.name,
-          berat: orderForm.weight,
-          harga: selectedService.harga,
-          total: total.toString(),
-          ongkir: ongkir.toString(),
+          layanan: selectedService.name + (isKarpet ? ` (${carpetSize})` : ""),
+          berat: isKarpet ? "1 pcs" : orderForm.weight,
+          harga: hargaItem.toString(),
+          total: totalBayar.toString(),
+          ongkir: ongkirVal.toString(),
           delivery_mode: deliveryMode,
           status: "Baru"
         })
@@ -480,6 +495,14 @@ Terima kasih telah memilih Pinang Laundry!`
   const processOrders = orders.filter(o => o.status === "Diproses");
   const completedOrders = orders.filter(o => o.status === "Selesai");
 
+  const hargaItem = isKarpet
+    ? (carpetSizes.find(s => s.label === carpetSize)?.price || 0)
+    : parseInt(selectedService?.harga || 0);
+  const qty = isKarpet ? 1 : (parseFloat(orderForm.weight) || 0);
+  const biayaCuci = qty * hargaItem;
+  const ongkirVal = deliveryMode === "kurir" ? getOngkir(distance) : 0;
+  const totalBayar = biayaCuci + ongkirVal;
+
   return (
     <>
     <div className="customer-layout" style={styles.app}>
@@ -572,7 +595,7 @@ Terima kasih telah memilih Pinang Laundry!`
                       <div style={styles.serviceName}>{s.name}</div>
                       <div style={styles.servicePrice}>Rp {parseInt(s.harga).toLocaleString('id-ID')}/{s.jenis === "Satuan" ? "pcs" : "kg"}</div>
                       <div style={styles.serviceTime}><span><Icon name="clock" /></span> <span>{s.waktu}</span></div>
-                      <button onClick={() => { setSelectedService(s); setOrderForm({ weight: "", phone: "", address: "", email: "" }); setShowOrderModal(true); }} style={styles.pesanBtn}>Pesan Sekarang</button>
+                      <button onClick={() => { setSelectedService(s); setOrderForm({ weight: "", phone: "", address: "", email: "" }); setCarpetSize(""); setShowOrderModal(true); }} style={styles.pesanBtn}>Pesan Sekarang</button>
                     </div>
                   );
                 })}
@@ -913,7 +936,7 @@ Terima kasih telah memilih Pinang Laundry!`
               <button style={styles.orderModalClose} onClick={() => setShowOrderModal(false)}>✕</button>
             </div>
             <div style={styles.orderModalBody}>
-              <div style={styles.infoHarga}>Harga: Rp {parseInt(selectedService?.harga || 0).toLocaleString('id-ID')}/{getUnit(selectedService?.name)}</div>
+              <div style={styles.infoHarga}>{isKarpet ? "Pilih ukuran karpet" : `Harga: Rp ${parseInt(selectedService?.harga || 0).toLocaleString('id-ID')}/${getUnit(selectedService?.name)}`}</div>
 
               <div style={{ background: "#fef2f2", border: "1px solid #fecaca", borderRadius: 10, padding: "10px 14px", fontSize: 12, color: "#dc2626", lineHeight: 1.6 }}>
                 <b>⚠️ Kami tidak menerima:</b> Pakaian branded, kain kafan, bahan kulit/suede, baju berpayet/manik-manik, noda cat/lem permanen, dan sprei/bed cover jumbo.
@@ -942,10 +965,22 @@ Terima kasih telah memilih Pinang Laundry!`
 
               <div style={styles.sectionLabel}>1. MASUKKAN JUMLAH ESTIMASI</div>
               <div style={styles.fieldBox}>
-                <div style={styles.fieldRow}>
-                  <span style={styles.fieldLabel}>Jumlah ({getUnit(selectedService?.name)})</span>
-                  <input type="number" min="0" max="20" step="0.1" placeholder="0" value={orderForm.weight} onChange={e => setOrderForm({ ...orderForm, weight: e.target.value })} style={styles.orderInput} />
-                </div>
+                {isKarpet ? (
+                  <div style={styles.fieldRow}>
+                    <span style={styles.fieldLabel}>Ukuran Karpet</span>
+                    <select value={carpetSize} onChange={e => setCarpetSize(e.target.value)} style={styles.orderSelect}>
+                      <option value="">-- Pilih Ukuran --</option>
+                      {carpetSizes.map(s => (
+                        <option key={s.label} value={s.label}>{s.label} - Rp {s.price.toLocaleString('id-ID')}</option>
+                      ))}
+                    </select>
+                  </div>
+                ) : (
+                  <div style={styles.fieldRow}>
+                    <span style={styles.fieldLabel}>Jumlah ({getUnit(selectedService?.name)})</span>
+                    <input type="number" min="0" max="20" step="0.1" placeholder="0" value={orderForm.weight} onChange={e => setOrderForm({ ...orderForm, weight: e.target.value })} style={styles.orderInput} />
+                  </div>
+                )}
               </div>
 
               <div style={styles.sectionLabel}>2. OPSI PENGIRIMAN</div>
@@ -1010,8 +1045,12 @@ Terima kasih telah memilih Pinang Laundry!`
               <div style={styles.ringkasan}>
                 <div style={styles.ringkasanTitle}>RINGKASAN BIAYA</div>
                 <div style={styles.ringkasanRow}>
-                  <span>Total Cuci ({orderForm.weight || 0} {getUnit(selectedService?.name)} x Rp {parseInt(selectedService?.harga || 0).toLocaleString('id-ID')})</span>
-                  <span>Rp {((parseFloat(orderForm.weight) || 0) * parseInt(selectedService?.harga || 0)).toLocaleString('id-ID')}</span>
+                  {isKarpet ? (
+                    <span>Cuci Karpet ({carpetSize || "-"})</span>
+                  ) : (
+                    <span>Total Cuci ({orderForm.weight || 0} {getUnit(selectedService?.name)} x Rp {parseInt(selectedService?.harga || 0).toLocaleString('id-ID')})</span>
+                  )}
+                  <span>Rp {biayaCuci.toLocaleString('id-ID')}</span>
                 </div>
                 {deliveryMode === "kurir" && (
                   <div style={styles.ringkasanRow}>
@@ -1022,7 +1061,7 @@ Terima kasih telah memilih Pinang Laundry!`
                 <div style={styles.divider}></div>
                 <div style={styles.ringkasanTotal}>
                   <span>TOTAL ESTIMASI BAYAR</span>
-                  <span>Rp {(((parseFloat(orderForm.weight) || 0) * parseInt(selectedService?.harga || 0)) + (deliveryMode === "kurir" ? getOngkir(distance) : 0)).toLocaleString('id-ID')}</span>
+                  <span>Rp {totalBayar.toLocaleString('id-ID')}</span>
                 </div>
               </div>
             </div>
