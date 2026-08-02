@@ -47,6 +47,13 @@ export default function CustomerLoginPage() {
       setError("Masukkan username dan password!");
       return;
     }
+    if (username.includes("@")) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(username)) {
+        setError("Email tidak valid! Contoh: nama@gmail.com");
+        return;
+      }
+    }
     try {
       const res = await fetch("/api/customers/login", {
         method: "POST",
